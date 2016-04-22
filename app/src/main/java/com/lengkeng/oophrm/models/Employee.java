@@ -5,8 +5,12 @@ package com.lengkeng.oophrm.models;
  * Contact: levinhthien.bka@gmail.com
  */
 public class Employee {
+    private int id;
     private String name;
     private String chucvu;
+    private String dateofbirth;
+    private String sex;
+    private int cmt;
 
     public Employee(String name, String chucvu) {
         this.chucvu = chucvu;
