@@ -60,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 if(MemberActivity.count == 0) startActivity(intent);
             }
         });
+        timeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                if (ScheduleActivity.count == 0) startActivity(intent);
+            }
+        });
     }
 
 }
