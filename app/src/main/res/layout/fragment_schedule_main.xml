@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5">
+                <com.andexert.library.RippleView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    app:rv_color="@color/colorOrange"
+                    app:rv_rippleDuration="200">
+
+                    <LinearLayout
+                        android:id="@+id/member_schedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@drawable/border_orange"
+                            android:padding="10dp"
+                            android:src="@drawable/clock" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Chấm công"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </com.andexert.library.RippleView>
+                <com.andexert.library.RippleView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    app:rv_color="@color/colorOrange"
+                    app:rv_rippleDuration="200">
+
+                    <LinearLayout
+                        android:id="@+id/member_management"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@drawable/border_orange"
+                            android:padding="10dp"
+                            android:src="@drawable/analyst" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thống kê"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </com.andexert.library.RippleView>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:padding="10dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textSize="18dp"
+                        android:textAlignment="center"
+                        android:text="Tuần 10, ngày 23 thấng 4 năm 2016"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="Tổng số nhân viên"
+                                android:layout_weight="0.5"
+                                android:textAlignment="textEnd"
+                                android:layout_gravity="end"
+                                android:paddingRight="10dp"/>
+                            <TextView
+                                android:text="15"
+                                android:layout_weight="1"/>
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="Số người đã duyệt"
+                                android:layout_weight="0.5"
+                                android:textAlignment="textEnd"
+                                android:layout_gravity="end"
+                                android:paddingRight="10dp"/>
+                            <TextView
+                                android:text="15"
+                                android:layout_weight="1"/>
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="Số người chưa chấm"
+                                android:layout_weight="0.5"
+                                android:textAlignment="textEnd"
+                                android:layout_gravity="end"
+                                android:paddingRight="10dp"/>
+                            <TextView
+                                android:text="15"
+                                android:layout_weight="1"/>
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
