@@ -47,9 +47,11 @@ public class MemberActivity extends AppCompatActivity {
     }
 
     public void addFragment(Fragment fragment, int resourceId, int canBack){
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+
         transaction.replace(resourceId, fragment );
         if(canBack == 1) transaction.addToBackStack(null);
         transaction.commit();

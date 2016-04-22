@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:elevation="6dp">
+            android:elevation="4dp">
 
             <RelativeLayout
 
@@ -70,4 +70,6 @@
                 app:elevation="4dp" />
         </com.andexert.library.RippleView>
     </RelativeLayout>
+
+    <include layout="@layout/fragment_left_menu" />
 </android.support.v4.widget.DrawerLayout>
