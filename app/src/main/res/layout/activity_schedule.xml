@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/member_layout">
-
+    tools:context="com.lengkeng.oophrm.ScheduleActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -31,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Quản lý nhân sự"
+                    android:text="Quản lý chấm công"
                     android:textAlignment="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/activity_horizontal_margin"
@@ -45,29 +44,12 @@
                     android:src="@drawable/search" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
-
         <FrameLayout
+            android:layout_below="@+id/toolbar"
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar" />
+            android:layout_height="match_parent">
 
-        <com.andexert.library.RippleView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            app:rv_rippleDuration="100">
-
-            <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/user_plus"
-                app:backgroundTint="@color/colorPrimary"
-                app:elevation="4dp" />
-        </com.andexert.library.RippleView>
+        </FrameLayout>
     </RelativeLayout>
-</android.support.v4.widget.DrawerLayout>
+</RelativeLayout>
