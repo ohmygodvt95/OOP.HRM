@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.lengkeng.oophrm.MainActivity;
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.adapters.ListMemberAdapter;
 import com.lengkeng.oophrm.models.Employee;
-import com.lengkeng.oophrm.utils.Support;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,23 +42,15 @@ public class ListMemberFragment extends Fragment {
     public void onResume() {
         super.onResume();
         arrayList = new ArrayList<>();
-        Support support = new Support(getContext(), arrayList,"http://vinhthien.name.vn/api/request?func=get_employees");
-        try {
-            JSONArray objects = (JSONArray) support.execute().get();
-            for (int i = 0; i < objects.length(); i++){
-                JSONObject obj = objects.getJSONObject(i);
-                arrayList.add(new Employee(obj));
-            }
-
-            adapter =   new ListMemberAdapter(arrayList, getActivity());
-            listView.setAdapter(adapter);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        arrayList.add(new Employee("Thien", "Giam doc"));
+        arrayList.add(new Employee("Thien1", "Giam doc"));
+        arrayList.add(new Employee("Thien2", "Giam doc"));
+        arrayList.add(new Employee("Thien3", "Giam doc"));
+        arrayList.add(new Employee("Thien4", "Giam doc"));
+        arrayList.add(new Employee("Thien5", "Giam doc"));
+        arrayList.add(new Employee("Thien6", "Giam doc"));
+        adapter = new ListMemberAdapter(arrayList, getContext());
+        listView.setAdapter(adapter);
 
     }
 

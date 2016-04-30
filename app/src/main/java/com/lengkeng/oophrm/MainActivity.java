@@ -1,16 +1,12 @@
 package com.lengkeng.oophrm;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.lengkeng.oophrm.utils.Support;
 
 
 public class MainActivity extends AppCompatActivity {
