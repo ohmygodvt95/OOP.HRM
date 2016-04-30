@@ -67,15 +67,7 @@
                     android:text="abc"
                     android:textSize="18dp"
                     android:textStyle="normal"
-                    android:textColor="@color/colorPrimaryDark"/>
-
-                <TextView
-                    android:id="@+id/position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nhân viên"
-                    android:textSize="13dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:textColor="#FF530D"/>
 
                 <TextView
                     android:id="@+id/group"
@@ -83,7 +75,17 @@
                     android:layout_height="wrap_content"
                     android:text="Ban công nghệ"
                     android:textSize="13dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:textColor="#32CD32"/>
+
+
+                <TextView
+                    android:id="@+id/position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nhân viên"
+                    android:textSize="13dp"
+                    android:textColor="@color/colorPrimary"/>
+
             </LinearLayout>
 
         </RelativeLayout>
