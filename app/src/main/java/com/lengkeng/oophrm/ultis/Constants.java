@@ -6,5 +6,7 @@ package com.lengkeng.oophrm.ultis;
  */
 public class Constants {
     // Host lay du lieu
-    public static String HOST = "http://vinhhthien.name.vn/api/request?";
+    public final static String HOST = "http://vinhhthien.name.vn/api/request?";
+    // tét
+    public final static int nghich = 1;
 }
