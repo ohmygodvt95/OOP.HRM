@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.lengkeng.oophrm.utils.Support;
+
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         initEvent();
         // code ảo
         LinearLayout panel = (LinearLayout) findViewById(R.id.menu_panel);
+        assert panel != null;
         panel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LinearLayout left = (LinearLayout) findViewById(R.id.left_menu);
+                assert (left != null ? left : null) != null;
                 drawerLayout.openDrawer(left);
             }
         });
@@ -65,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
                 if (ScheduleActivity.count == 0) startActivity(intent);
+            }
+        });
+        analystLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

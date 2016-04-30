@@ -9,12 +9,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.lengkeng.oophrm.MainActivity;
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.adapters.ListMemberAdapter;
 import com.lengkeng.oophrm.models.Employee;
+import com.lengkeng.oophrm.utils.Support;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Le Vinh Thien on 4/8/2016.
@@ -33,27 +40,33 @@ public class ListMemberFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        arrayList = new ArrayList<>();
+        Support support = new Support(getContext(), arrayList,"http://vinhthien.name.vn/api/request?func=get_employees");
+        try {
+            JSONArray objects = (JSONArray) support.execute().get();
+            for (int i = 0; i < objects.length(); i++){
+                JSONObject obj = objects.getJSONObject(i);
+                arrayList.add(new Employee(obj));
+            }
+
+            adapter =   new ListMemberAdapter(arrayList, getActivity());
+            listView.setAdapter(adapter);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void init(){
         listView = (ListView) view.findViewById(R.id.lv_member);
         arrayList = new ArrayList<>();
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thắng", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Đại", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Phúc", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Đức", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiêm", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Quỳnh", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Quýnh", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        arrayList.add(new Employee("Lê Vĩnh Thiện", "Manager"));
-        adapter =   new ListMemberAdapter(arrayList, getActivity());
-
-        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -62,7 +75,6 @@ public class ListMemberFragment extends Fragment {
                 ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee.getName()), R.id.fragment_container, 1);
             }
         });
-
 
     }
 }

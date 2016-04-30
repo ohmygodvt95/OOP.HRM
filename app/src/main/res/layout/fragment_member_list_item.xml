@@ -70,7 +70,7 @@
                     android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
-                    android:id="@+id/chucvu"
+                    android:id="@+id/position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nhân viên"
@@ -78,7 +78,7 @@
                     android:textColor="@android:color/darker_gray"/>
 
                 <TextView
-                    android:id="@+id/phongban"
+                    android:id="@+id/group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ban công nghệ"
