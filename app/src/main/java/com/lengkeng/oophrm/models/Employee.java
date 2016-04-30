@@ -17,6 +17,7 @@ public class Employee {
     private String group;
     private String dateofbirth;
     private String sex;
+    private String address;
     private int cmt;
     private int salary;
     public Employee(String lastname, String position) {
