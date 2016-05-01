@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lengkeng.oophrm.R;
@@ -45,14 +47,15 @@ public class ListMemberAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.fragment_member_list_item, parent, false);
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
-        TextView tvPosition = (TextView) convertView.findViewById(R.id.position);
-        TextView tvLetter = (TextView) convertView.findViewById(R.id.letter);
-        TextView tvGroup = (TextView) convertView.findViewById(R.id.group);
-
         tvName.setText(((Employee)getItem(position)).getName());
-        tvPosition.setText(((Employee)getItem(position)).getPosition());
-        tvLetter.setText(((Employee)getItem(position)).getLastname().substring(0, 1));
+        TextView tvGroup = (TextView) convertView.findViewById(R.id.group);
         tvGroup.setText(((Employee)getItem(position)).getGroup());
+        TextView tvPosition = (TextView) convertView.findViewById(R.id.position);
+        tvPosition.setText(((Employee)getItem(position)).getPosition());
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.imguser);
+        if(((Employee)getItem(position)).getSex().equals("Nam"))
+            imageView.setImageResource(R.drawable.user_boy);
+        else imageView.setImageResource(R.drawable.user_girl);
         return convertView;
     }
 }

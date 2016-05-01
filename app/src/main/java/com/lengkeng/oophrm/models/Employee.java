@@ -39,6 +39,7 @@ public class Employee {
             e.printStackTrace();
         }
     }
+    public  Employee(){}
     public String getPosition() {
         return this.position;
     }

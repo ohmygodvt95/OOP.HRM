@@ -67,7 +67,8 @@
                 android:layout_margin="10dp"
                 android:src="@drawable/user_plus"
                 app:backgroundTint="@color/colorPrimary"
-                app:elevation="4dp" />
+                app:elevation="4dp"
+                />
         </com.andexert.library.RippleView>
     </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>
