@@ -5,11 +5,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.lengkeng.oophrm.MemberActivity;
@@ -23,15 +29,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Le Vinh Thien on 4/8/2016.
  * Contact: levinhthien.bka@gmail.com
  */
-public class ListMemberFragment extends Fragment {
+public class ListMemberFragment extends Fragment  {
     ListView listView;
     ArrayList<Employee> arrayList;
     ListMemberAdapter adapter;
+    SearchView  searchView;
+    EditText editText;
     View view;
     Integer id_member;
 
@@ -41,7 +50,9 @@ public class ListMemberFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_member_list, container, false);
         init();
-        new getListEmployees().execute();
+//        new getListEmployees().execute();
+//        listView.setTextFilterEnabled(true);
+//        setupSearchView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -54,8 +65,55 @@ public class ListMemberFragment extends Fragment {
 
     private void init(){
         listView = (ListView) view.findViewById(R.id.lv_member);
+        searchView = (SearchView) view.findViewById(R.id.search);
+        editText = (EditText) view.findViewById(R.id.edit_search);
         arrayList = new ArrayList<>();
+        new getListEmployees().execute();
+        //listView.setTextFilterEnabled(true);
+        //setupSearchView();
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String text = editText.getText().toString().toLowerCase(Locale.getDefault());
+                adapter.filter(text);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
+
+//    private void setupSearchView() {
+//        searchView.setIconifiedByDefault(false);
+//        searchView.setOnQueryTextListener(this);
+//        searchView.setSubmitButtonEnabled(true);
+//        searchView.setQueryHint("Search Here");
+//    }
+//
+//    @Override
+//    public boolean onClose() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onQueryTextSubmit(String query) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onQueryTextChange(String newText) {
+//        //String text = searchView.getQuery().toString().toLowerCase(Locale.getDefault());
+//        String text = editText.getText().toString().toLowerCase(Locale.getDefault());
+//        adapter.filter(text);
+//        return true;
+//    }
 
     class getListEmployees extends AsyncTask<String,String,String>{
         ProgressDialog pDialog;
@@ -75,7 +133,6 @@ public class ListMemberFragment extends Fragment {
             pDialog.cancel();
             adapter =   new ListMemberAdapter(arrayList, getActivity());
             listView.setAdapter(adapter);
-
         }
 
         @Override
