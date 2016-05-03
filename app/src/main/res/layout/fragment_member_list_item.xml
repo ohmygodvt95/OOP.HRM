@@ -19,6 +19,7 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorWhite"/>
             <Button
+                android:id="@+id/delete_employee"
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

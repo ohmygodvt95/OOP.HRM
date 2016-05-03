@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.kevinsawicki.http.HttpRequest;
@@ -48,6 +49,10 @@ public class InfoMemberFragment extends Fragment {
         tvGroup.setText(this.employee.getGroup());
         TextView tvPosition = (TextView) view.findViewById(R.id.position);
         tvPosition.setText(this.employee.getPosition());
+        ImageView img = (ImageView) view.findViewById(R.id.img_user);
+        if((this.employee.getSex()).equals("Nam"))
+            img.setImageResource(R.drawable.user_boy);
+        else img.setImageResource(R.drawable.user_girl);
 
         return view;
     }

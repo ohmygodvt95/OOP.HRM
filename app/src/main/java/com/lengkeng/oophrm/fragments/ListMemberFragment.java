@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -41,6 +43,7 @@ public class ListMemberFragment extends Fragment  {
     ListMemberAdapter adapter;
     SearchView  searchView;
     EditText editText;
+    Button btn_delete;
     View view;
     Integer id_member;
 
@@ -50,6 +53,7 @@ public class ListMemberFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_member_list, container, false);
         init();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 //        new getListEmployees().execute();
 //        listView.setTextFilterEnabled(true);
 //        setupSearchView();
@@ -60,13 +64,15 @@ public class ListMemberFragment extends Fragment  {
                 ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
             }
         });
+
         return view;
     }
 
     private void init(){
         listView = (ListView) view.findViewById(R.id.lv_member);
-        searchView = (SearchView) view.findViewById(R.id.search);
+       // searchView = (SearchView) view.findViewById(R.id.search);
         editText = (EditText) view.findViewById(R.id.edit_search);
+        btn_delete = (Button) view.findViewById(R.id.delete_employee);
         arrayList = new ArrayList<>();
         new getListEmployees().execute();
         //listView.setTextFilterEnabled(true);
@@ -74,13 +80,13 @@ public class ListMemberFragment extends Fragment  {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                String text = editText.getText().toString().toLowerCase(Locale.getDefault());
-                adapter.filter(text);
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                String text = editText.getText().toString().toLowerCase(Locale.getDefault());
+                adapter.filter(text);
             }
 
             @Override

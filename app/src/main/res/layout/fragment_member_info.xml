@@ -16,11 +16,12 @@ android:padding="5dp">
     android:background="@drawable/bg_fix">
 
     <ImageView
+        android:id="@+id/img_user"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_margin="15dp"
-        android:src="@drawable/user_boy"/>
+        android:src="@drawable/user_girl"/>
 
 
     <LinearLayout
