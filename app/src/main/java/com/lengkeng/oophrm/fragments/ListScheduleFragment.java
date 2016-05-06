@@ -15,6 +15,7 @@ import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.ScheduleActivity;
 import com.lengkeng.oophrm.adapters.ListScheduleAdapter;
 import com.lengkeng.oophrm.models.Employee;
+import com.lengkeng.oophrm.http.HttpGetEmployees;
 
 import java.util.ArrayList;
 
@@ -22,11 +23,12 @@ import java.util.ArrayList;
  * Created by Le Vinh Thien on 4/15/2016.
  * Contact: levinhthien.bka@gmail.com
  */
-public class ListScheduleFragment extends Fragment{
+public class ListScheduleFragment extends Fragment {
     View view;
     ListView listView;
     ArrayList<Employee> data;
     ListScheduleAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,41 +38,26 @@ public class ListScheduleFragment extends Fragment{
         return view;
     }
 
-    private void init(){
-        data = new ArrayList<>();
+    private void init() {
+        Log.e("e", "init");
         listView = (ListView) view.findViewById(R.id.schedule_list);
         // add data on listview
         initData();
-        adapter = new ListScheduleAdapter(data, getActivity());
-        listView.setAdapter(adapter);
         // add evnet
+
+    }
+
+    private void initData() {
+        new HttpGetEmployees(getActivity(), "sex", "asc").execute();
         initEvent();
     }
 
-    private void initData(){
-        data.add(new Employee("Lê VĨnh Thiện 1", "Quản lý 1"));
-        data.add(new Employee("Lê VĨnh Thiện 2", "Quản lý 2"));
-        data.add(new Employee("Lê VĨnh Thiện 3", "Quản lý 3"));
-        data.add(new Employee("Lê VĨnh Thiện 4", "Quản lý 3"));
-        data.add(new Employee("Lê VĨnh Thiện 5", "Quản lý 4"));
-        data.add(new Employee("Lê VĨnh Thiện 6", "Quản lý 5"));
-        data.add(new Employee("Lê VĨnh Thiện 7", "Quản lý 6"));
-        data.add(new Employee("Lê VĨnh Thiện 8", "Quản lý 7"));
-        data.add(new Employee("Lê VĨnh Thiện 1", "Quản lý 1"));
-        data.add(new Employee("Lê VĨnh Thiện 2", "Quản lý 2"));
-        data.add(new Employee("Lê VĨnh Thiện 3", "Quản lý 3"));
-        data.add(new Employee("Lê VĨnh Thiện 4", "Quản lý 3"));
-        data.add(new Employee("Lê VĨnh Thiện 5", "Quản lý 4"));
-        data.add(new Employee("Lê VĨnh Thiện 6", "Quản lý 5"));
-        data.add(new Employee("Lê VĨnh Thiện 7", "Quản lý 6"));
-        data.add(new Employee("Lê VĨnh Thiện 8", "Quản lý 7"));
-    }
-
-    private void initEvent(){
+    private void initEvent() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((ScheduleActivity) getActivity()).addFragment(InfoScheduleFragment.newInstance((Employee)data.get(position)), R.id.fragment_container, 1);
+                Employee e = (Employee) ((ListScheduleAdapter) listView.getAdapter()).getData().get(position);
+                ((ScheduleActivity) getActivity()).addFragment(InfoScheduleFragment.newInstance(e), R.id.fragment_container, 1);
             }
         });
     }
@@ -84,7 +71,7 @@ public class ListScheduleFragment extends Fragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e("E", "onDetach: " );
+        Log.e("E", "onDetach: ");
     }
 
     @Override
@@ -104,4 +91,5 @@ public class ListScheduleFragment extends Fragment{
         super.onStop();
         Log.e("E", "onStop: ");
     }
+
 }
