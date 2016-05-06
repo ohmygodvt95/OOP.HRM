@@ -19,6 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RadioButton
+                    android:id="@+id/all_day"
+                    android:checked="false"
                     android:buttonTint="@color/colorWhite"
                     android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
@@ -26,6 +28,8 @@
                     android:text="Cả ngày" />
 
                 <RadioButton
+                    android:id="@+id/haft_day"
+                    android:checked="false"
                     android:buttonTint="@color/colorWhite"
                     android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
@@ -33,6 +37,8 @@
                     android:text="Nửa ngày" />
 
                 <RadioButton
+                    android:id="@+id/day_off_ok"
+                    android:checked="false"
                     android:buttonTint="@color/colorWhite"
                     android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
@@ -40,6 +46,8 @@
                     android:text="Có phép" />
 
                 <RadioButton
+                    android:id="@+id/day_off_cancel"
+                    android:checked="false"
                     android:buttonTint="@color/colorWhite"
                     android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
@@ -57,29 +65,26 @@
 
         <RelativeLayout
             android:id="@+id/info_member"
+            android:layout_marginBottom="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
             android:background="@drawable/bg_member_list_item"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/letter"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <ImageView
+                android:id="@+id/imguser"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/bg_text"
                 android:gravity="center"
-                android:text="A"
-                android:textColor="@color/colorWhite"
-                android:textSize="20dp" />
+                android:src="@drawable/user_girl"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/letter"
+                android:layout_toRightOf="@+id/imguser"
                 android:orientation="vertical">
 
                 <TextView
@@ -87,28 +92,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="abc"
-                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:textColor="#FF530D"/>
+
+                <TextView
+                    android:id="@+id/group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ban công nghệ"
+                    android:textSize="13dp"
+                    android:textColor="#32CD32"/>
+
 
                 <TextView
                     android:id="@+id/position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nhân viên"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:textColor="@color/colorPrimary"/>
 
-                <TextView
-                    android:id="@+id/phongban"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ban công nghệ"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="13dp" />
             </LinearLayout>
 
         </RelativeLayout>
+
 
     </RelativeLayout>
 
