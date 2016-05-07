@@ -51,12 +51,12 @@ public class ListMemberFragment extends Fragment  {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_member_list, container, false);
-        init();
+        if(view == null) {
+            view = inflater.inflate(R.layout.fragment_member_list, container, false);
+            init();
+        }
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-//        new getListEmployees().execute();
-//        listView.setTextFilterEnabled(true);
-//        setupSearchView();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -95,31 +95,6 @@ public class ListMemberFragment extends Fragment  {
             }
         });
     }
-
-//    private void setupSearchView() {
-//        searchView.setIconifiedByDefault(false);
-//        searchView.setOnQueryTextListener(this);
-//        searchView.setSubmitButtonEnabled(true);
-//        searchView.setQueryHint("Search Here");
-//    }
-//
-//    @Override
-//    public boolean onClose() {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextSubmit(String query) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextChange(String newText) {
-//        //String text = searchView.getQuery().toString().toLowerCase(Locale.getDefault());
-//        String text = editText.getText().toString().toLowerCase(Locale.getDefault());
-//        adapter.filter(text);
-//        return true;
-//    }
 
     class getListEmployees extends AsyncTask<String,String,String>{
         ProgressDialog pDialog;
