@@ -20,26 +20,46 @@ public class Employee {
     private String address;
     private int cmt;
     private int salary;
-    public Employee(String lastname, String position) {
-        this.position = position;
-        this.lastname = lastname;
-    }
-    public Employee(JSONObject obj){
+    private DayManager dayManager;
+    public Employee(JSONObject obj) {
         try {
-            this.id = obj.getInt("id");
-            //this.salary = obj.getInt("salary");
-            //this.cmt = obj.getInt("cmt");
-            this.firstname = obj.getString("firstname");
-            this.lastname = obj.getString("lastname");
-            this.position = obj.getString("position");
-            this.group = obj.getString("group");
-            //this.dateofbirth = obj.getString("dateofbirth");
-            this.sex = obj.getString("sex");
+            this.id = obj.has("id") ? obj.getInt("id") : 0;
+            this.firstname = obj.has("firstname") ? obj.getString("firstname") : null;
+            this.lastname = obj.has("lastname") ? obj.getString("lastname") : null;
+            this.position = obj.has("position") ? obj.getString("position") : null;
+            this.group = obj.has("group") ? obj.getString("group") : null;
+            this.dateofbirth = obj.has("dateofbirth") ? obj.getString("dateofbirth") : null;
+            this.sex = obj.has("sex") ? obj.getString("sex") : null;
+            this.address = obj.has("address") ? obj.getString("address") : null;
+            this.cmt = obj.has("cmt") ? obj.getInt("cmt") : 0;
+            this.salary = obj.has("salary") ? obj.getInt("salary") : 0;
+            this.dayManager = new DayManager();
+            this.dayManager.setToDay(new Day(0, obj.getJSONObject("today").getString("timestamp"), obj.getJSONObject("today").getString("title")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-    public  Employee(){}
+
+    public Employee() {
+
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public DayManager getDayManager() {
+        return dayManager;
+    }
+
+    public void setDayManager(DayManager dayManager) {
+        this.dayManager = dayManager;
+    }
+
     public String getPosition() {
         return this.position;
     }
@@ -49,7 +69,7 @@ public class Employee {
     }
 
     public String getName() {
-        return firstname+ " " + lastname;
+        return firstname + " " + lastname;
     }
 
     public int getCmt() {
