@@ -164,6 +164,7 @@ public class ListMemberAdapter extends BaseAdapter {
         TextView position;
         ImageView sex;
         Button btndelete;
+        TextView dateOfBirth;
     }
 
     private class EmployeeFilter extends Filter{
