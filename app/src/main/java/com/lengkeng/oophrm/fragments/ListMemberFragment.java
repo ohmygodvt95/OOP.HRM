@@ -37,11 +37,11 @@ import java.util.Locale;
  * Created by Le Vinh Thien on 4/8/2016.
  * Contact: levinhthien.bka@gmail.com
  */
-public class ListMemberFragment extends Fragment  {
+public class ListMemberFragment extends Fragment {
     ListView listView;
     ArrayList<Employee> arrayList;
     ListMemberAdapter adapter;
-    SearchView  searchView;
+    SearchView searchView;
     EditText editText;
     Button btn_delete;
     View view;
@@ -68,9 +68,9 @@ public class ListMemberFragment extends Fragment  {
         return view;
     }
 
-    private void init(){
+    private void init() {
         listView = (ListView) view.findViewById(R.id.lv_member);
-       // searchView = (SearchView) view.findViewById(R.id.search);
+        // searchView = (SearchView) view.findViewById(R.id.search);
         editText = (EditText) view.findViewById(R.id.edit_search);
         btn_delete = (Button) view.findViewById(R.id.delete_employee);
         arrayList = new ArrayList<>();
@@ -121,8 +121,9 @@ public class ListMemberFragment extends Fragment  {
 //        return true;
 //    }
 
-    class getListEmployees extends AsyncTask<String,String,String>{
+    class getListEmployees extends AsyncTask<String, String, String> {
         ProgressDialog pDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -137,33 +138,33 @@ public class ListMemberFragment extends Fragment  {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             pDialog.cancel();
-            adapter =   new ListMemberAdapter(arrayList, getActivity());
+            adapter = new ListMemberAdapter(arrayList, getActivity());
             listView.setAdapter(adapter);
         }
 
         @Override
         protected String doInBackground(String... args) {
             HttpRequest request = HttpRequest.get("http://vinhthien.name.vn/api/request?func=get_employees&orderBy=id&orderType=asc");
-            String response=request.body();
+            String response = request.body();
             try {
-                JSONArray employeesJson  = new JSONArray(response);
-                for(int i=0;i<employeesJson.length();i++){
-                    JSONObject object=employeesJson.getJSONObject(i);
+                JSONArray employeesJson = new JSONArray(response);
+                for (int i = 0; i < employeesJson.length(); i++) {
+                    JSONObject object = employeesJson.getJSONObject(i);
 
-                    Employee employee=new Employee();
+                    Employee employee = new Employee();
 //                    id_member = employee.getId();
-                    if(object.has("id"))
+                    if (object.has("id"))
                         employee.setId(object.getInt("id"));
 //                    id_member = employee.getId();
-                    if(object.has("firstname"))
+                    if (object.has("firstname"))
                         employee.setFirstname(object.getString("firstname"));
-                    if(object.has("lastname"))
+                    if (object.has("lastname"))
                         employee.setLastname(object.getString("lastname"));
-                    if(object.has("position"))
+                    if (object.has("position"))
                         employee.setPosition(object.getString("position"));
-                    if(object.has("group"))
+                    if (object.has("group"))
                         employee.setGroup(object.getString("group"));
-                    if(object.has("sex"))
+                    if (object.has("sex"))
                         employee.setSex(object.getString("sex"));
                     arrayList.add(employee);
                 }
