@@ -159,6 +159,24 @@ android:padding="5dp">
                 android:text="Giám Đốc"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/bonus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#228B22"
+                android:text="Trợ cấp:"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/bonus2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xxx"/>
+        </LinearLayout>
+
 
 
     </LinearLayout>

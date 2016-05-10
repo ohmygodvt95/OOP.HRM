@@ -1,8 +1,15 @@
 package com.lengkeng.oophrm.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -51,19 +58,12 @@ public class ListMemberFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_member_list, container, false);
         init();
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-//        new getListEmployees().execute();
-//        listView.setTextFilterEnabled(true);
-//        setupSearchView();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Employee employee = (Employee) adapter.getItem(position);
-                ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
-            }
-        });
+
 
         return view;
     }
@@ -94,32 +94,15 @@ public class ListMemberFragment extends Fragment {
 
             }
         });
-    }
 
-//    private void setupSearchView() {
-//        searchView.setIconifiedByDefault(false);
-//        searchView.setOnQueryTextListener(this);
-//        searchView.setSubmitButtonEnabled(true);
-//        searchView.setQueryHint("Search Here");
-//    }
-//
-//    @Override
-//    public boolean onClose() {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextSubmit(String query) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextChange(String newText) {
-//        //String text = searchView.getQuery().toString().toLowerCase(Locale.getDefault());
-//        String text = editText.getText().toString().toLowerCase(Locale.getDefault());
-//        adapter.filter(text);
-//        return true;
-//    }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Employee employee = (Employee) adapter.getItem(position);
+                ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
+            }
+        });
+    }
 
     class getListEmployees extends AsyncTask<String, String, String> {
         ProgressDialog pDialog;
@@ -174,5 +157,37 @@ public class ListMemberFragment extends Fragment {
 
             return null;
         }
+
+
+        private Void isOnline() {
+
+            ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo ni = cm.getActiveNetworkInfo();
+            if (ni != null && ni.isConnected()) {
+                showNetworkSettingsAlert();
+            }
+            return null;
+        }
+
+        public void showNetworkSettingsAlert() {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+            alertDialog.setTitle("Cấu hình mạng");
+            alertDialog.setMessage("Chưa bật kết nối mạng.\nDi chuyển sang giao diện cấu hình?");
+            alertDialog.setPositiveButton("Cấu hình",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                            getActivity().startActivity(intent);
+                        }
+                    });
+            alertDialog.setNegativeButton("Bỏ qua",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            alertDialog.show();
+        }
+
     }
 }
