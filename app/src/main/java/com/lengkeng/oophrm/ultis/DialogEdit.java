@@ -163,9 +163,6 @@ public class DialogEdit extends DialogFragment {
         String sPosition = position.getText().toString();
         String sSalary = salary.getText().toString();
         String sBonus = bonus.getText().toString();
-//        Integer iSalary = Integer.parseInt(salary.getText().toString());
-//        Integer iBonus = Integer.parseInt(bonus.getText().toString());
-
 
         @Override
         protected void onPreExecute() {
@@ -203,7 +200,6 @@ public class DialogEdit extends DialogFragment {
                 UrlEncodedFormEntity form = new UrlEncodedFormEntity(nameValuePairs);
                 form.setContentEncoding(HTTP.UTF_8);
                 httpPost.setEntity(form);
-               // httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
 
             } catch (IOException e) {

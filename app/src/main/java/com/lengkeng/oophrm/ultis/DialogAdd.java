@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * Created by Lan Mai on 5/11/2016.
  */
-public class DialogAdd extends DialogFragment{
+public class DialogAdd extends DialogFragment {
     EditText firstName;
     EditText lastName;
     EditText dateOfBirth;
@@ -73,7 +73,7 @@ public class DialogAdd extends DialogFragment{
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         new PutInfo().execute();
-                        Intent intent = new Intent(  getActivity(), MemberActivity.class  );
+                        Intent intent = new Intent(getActivity(), MemberActivity.class);
                         startActivity(intent);
                     }
                 })
@@ -110,11 +110,9 @@ public class DialogAdd extends DialogFragment{
         String sGroup = group.getText().toString();
         String sPosition = position.getText().toString();
         String sSalary = salary.getText().toString();
-        Object sPo = sPosition;
         String sBonus = bonus.getText().toString();
-        String idnv =  tvIdnv.getText().toString();
-//        Integer iSalary = Integer.parseInt(salary.getText().toString());
-//        Integer iBonus = Integer.parseInt(bonus.getText().toString());
+        String idnv = tvIdnv.getText().toString();
+
         @Override
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -137,9 +135,7 @@ public class DialogAdd extends DialogFragment{
                 e.printStackTrace();
             }
 
-
             return null;
-
 
         }
     }
@@ -157,8 +153,6 @@ public class DialogAdd extends DialogFragment{
             return null;
         }
     }
-
-
 
 
 }

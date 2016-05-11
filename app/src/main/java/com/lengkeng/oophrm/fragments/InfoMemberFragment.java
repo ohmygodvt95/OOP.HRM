@@ -63,6 +63,7 @@ public class InfoMemberFragment extends Fragment {
         TextView tvDateOfbirth = (TextView) view.findViewById(R.id.dateofbirth);
         TextView tvBonus = (TextView) view.findViewById(R.id.bonus);
         TextView tvBonus2 = (TextView) view.findViewById(R.id.bonus2);
+        TextView tvSalary = (TextView) view.findViewById(R.id.salary);
 
         if (e instanceof Manager){
             tvName.setText(((Manager) e).getName());
@@ -74,6 +75,7 @@ public class InfoMemberFragment extends Fragment {
             tvBonus.setVisibility(View.VISIBLE);
             tvBonus2.setVisibility(View.VISIBLE);
             tvBonus2.setText(((Manager) e).getBonus()+"");
+            tvSalary.setText(((Manager) e).getSalary()+"");
             if(((Manager) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
@@ -87,6 +89,7 @@ public class InfoMemberFragment extends Fragment {
             tvPosition.setText(((Employee) e).getPosition());
             tvBonus.setVisibility(View.GONE);
             tvBonus2.setVisibility(View.GONE);
+            tvSalary.setText(((Employee) e).getSalary());
             if(((Employee) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
