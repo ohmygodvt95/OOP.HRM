@@ -1,34 +1,21 @@
 package com.lengkeng.oophrm.ultis;
-//baka
 
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.kevinsawicki.http.HttpRequest;
-import com.lengkeng.oophrm.MainActivity;
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.fragments.InfoMemberFragment;
@@ -37,20 +24,25 @@ import com.lengkeng.oophrm.models.Manager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Lan Mai on 5/7/2016.
+ * Created by Lan Mai on 5/11/2016.
  */
-public class DialogEdit extends DialogFragment {
+public class DialogAdd extends DialogFragment{
     EditText firstName;
     EditText lastName;
     EditText dateOfBirth;
@@ -60,31 +52,8 @@ public class DialogEdit extends DialogFragment {
     EditText salary;
     EditText bonus;
     TextView tvbonus;
+    TextView tvIdnv;
 
-    Employee employee;
-    Manager manager;
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public Employee getEmployee() {
-
-        return employee;
-    }
-
-    public Employee setEmployee(Employee employee) {
-        this.employee = employee;
-        return null;
-    }
-
-    interface onSubmitListener {
-        void setOnSubmitListener(String arg);
-    }
 
     @Nullable
     @Override
@@ -104,12 +73,13 @@ public class DialogEdit extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         new PutInfo().execute();
-                        ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
+                        Intent intent = new Intent(  getActivity(), MemberActivity.class  );
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        DialogEdit.this.getDialog().cancel();
+                        DialogAdd.this.getDialog().cancel();
                     }
                 });
         return builder.create();
@@ -126,30 +96,7 @@ public class DialogEdit extends DialogFragment {
         salary = (EditText) this.getDialog().findViewById(R.id.salary);
         bonus = (EditText) this.getDialog().findViewById(R.id.bonus);
         tvbonus = (TextView) this.getDialog().findViewById(R.id.tvbonus);
-
-        if (manager != null) {
-            firstName.setText(manager.getFirstname());
-            lastName.setText(manager.getLastname());
-            dateOfBirth.setText(manager.getDateofbirth());
-            sex.setText(manager.getSex());
-            group.setText(manager.getGroup());
-            position.setText(manager.getPosition());
-            salary.setText(manager.getSalary()+"");
-            tvbonus.setVisibility(View.VISIBLE);
-            bonus.setVisibility(View.VISIBLE);
-            bonus.setText(manager.getBonus()+"");
-
-        } else if (employee != null) {
-            firstName.setText(employee.getFirstname());
-            lastName.setText(employee.getLastname());
-            dateOfBirth.setText(employee.getDateofbirth());
-            sex.setText(employee.getSex());
-            group.setText(employee.getGroup());
-            position.setText(employee.getPosition());
-            salary.setText(employee.getSalary() + "");
-            tvbonus.setVisibility(View.GONE);
-            bonus.setVisibility(View.GONE);
-        }
+        tvIdnv = (TextView) this.getDialog().findViewById(R.id.idnv);
     }
 
 
@@ -158,38 +105,22 @@ public class DialogEdit extends DialogFragment {
         String sFirstName = firstName.getText().toString();
         String sLastName = lastName.getText().toString();
         String sDateOfBirth = dateOfBirth.getText().toString();
+        Date d = convertStringToDate(sDateOfBirth);
         String sSex = sex.getText().toString();
         String sGroup = group.getText().toString();
         String sPosition = position.getText().toString();
         String sSalary = salary.getText().toString();
+        Object sPo = sPosition;
         String sBonus = bonus.getText().toString();
+        String idnv =  tvIdnv.getText().toString();
 //        Integer iSalary = Integer.parseInt(salary.getText().toString());
 //        Integer iBonus = Integer.parseInt(bonus.getText().toString());
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Loading. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            pDialog.cancel();
-            super.onPostExecute(s);
-
-        }
-
         @Override
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(Constants.HOST + "func=update_employee_by_id");
+            HttpPost httpPost = new HttpPost(Constants.HOST + "func=create_employee");
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
-            nameValuePairs.add(new BasicNameValuePair("id", employee.getId() + ""));
+            //nameValuePairs.add(new BasicNameValuePair("id", idnv));
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
@@ -200,12 +131,8 @@ public class DialogEdit extends DialogFragment {
             nameValuePairs.add(new BasicNameValuePair("bonus", sBonus));
 
             try {
-                UrlEncodedFormEntity form = new UrlEncodedFormEntity(nameValuePairs);
-                form.setContentEncoding(HTTP.UTF_8);
-                httpPost.setEntity(form);
-               // httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -214,6 +141,20 @@ public class DialogEdit extends DialogFragment {
             return null;
 
 
+        }
+    }
+
+    public static String convertDateToString(Date date) {
+        SimpleDateFormat mySimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return mySimpleDateFormat.format(date);
+    }
+
+    public static Date convertStringToDate(String dateStr) {
+        SimpleDateFormat mySimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return mySimpleDateFormat.parse(dateStr);
+        } catch (java.text.ParseException e) {
+            return null;
         }
     }
 
