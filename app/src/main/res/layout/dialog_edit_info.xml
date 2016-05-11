@@ -170,6 +170,7 @@
             android:layout_height="wrap_content"
             android:text="Giám đốc"
             android:id="@+id/position"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

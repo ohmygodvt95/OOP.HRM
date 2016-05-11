@@ -18,14 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.kevinsawicki.http.HttpRequest;
+import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
+import com.lengkeng.oophrm.fragments.InfoMemberFragment;
 import com.lengkeng.oophrm.models.Employee;
 import com.lengkeng.oophrm.models.Manager;
 
@@ -53,6 +57,7 @@ public class DialogEdit extends DialogFragment {
     EditText salary;
     EditText bonus;
     TextView tvbonus;
+
     Employee employee;
     Manager manager;
 
@@ -95,7 +100,8 @@ public class DialogEdit extends DialogFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        new putInfo().execute();
+                        new PutInfo().execute();
+                        ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -125,10 +131,10 @@ public class DialogEdit extends DialogFragment {
             sex.setText(manager.getSex());
             group.setText(manager.getGroup());
             position.setText(manager.getPosition());
-            //salary.setText(manager.getSalary());
+            salary.setText(manager.getSalary()+"");
             tvbonus.setVisibility(View.VISIBLE);
             bonus.setVisibility(View.VISIBLE);
-//            bonus.setText(manager.getBonus());
+            bonus.setText(manager.getBonus()+"");
 
         } else if (employee != null) {
             firstName.setText(employee.getFirstname());
@@ -137,14 +143,14 @@ public class DialogEdit extends DialogFragment {
             sex.setText(employee.getSex());
             group.setText(employee.getGroup());
             position.setText(employee.getPosition());
-           // salary.setText(employee.getSalary());
+            salary.setText(employee.getSalary() + "");
             tvbonus.setVisibility(View.GONE);
             bonus.setVisibility(View.GONE);
         }
     }
 
 
-    class putInfo extends AsyncTask<String, String, String> {
+    class PutInfo extends AsyncTask<String, String, String> {
         ProgressDialog pDialog;
         String sFirstName = firstName.getText().toString();
         String sLastName = lastName.getText().toString();
@@ -152,8 +158,11 @@ public class DialogEdit extends DialogFragment {
         String sSex = sex.getText().toString();
         String sGroup = group.getText().toString();
         String sPosition = position.getText().toString();
-       // String sSalary = salary.getText().toString();
-     //   String sBonus = bonus.getText().toString();
+        String sSalary = salary.getText().toString();
+        String sBonus = bonus.getText().toString();
+//        Integer iSalary = Integer.parseInt(salary.getText().toString());
+//        Integer iBonus = Integer.parseInt(bonus.getText().toString());
+
 
         @Override
         protected void onPreExecute() {
@@ -176,7 +185,7 @@ public class DialogEdit extends DialogFragment {
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=update_employee_by_id");
-            List<NameValuePair> nameValuePairs = new ArrayList<>(3);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(9);
             nameValuePairs.add(new BasicNameValuePair("id", employee.getId() + ""));
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
@@ -184,8 +193,8 @@ public class DialogEdit extends DialogFragment {
             nameValuePairs.add(new BasicNameValuePair("sex", sSex));
             nameValuePairs.add(new BasicNameValuePair("position", sPosition));
             nameValuePairs.add(new BasicNameValuePair("group", sGroup));
-           // nameValuePairs.add(new BasicNameValuePair("salary", sSalary));
-          //  nameValuePairs.add(new BasicNameValuePair("bonus", sBonus));
+            nameValuePairs.add(new BasicNameValuePair("salary", sSalary));
+            nameValuePairs.add(new BasicNameValuePair("bonus", sBonus));
 
             try {
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

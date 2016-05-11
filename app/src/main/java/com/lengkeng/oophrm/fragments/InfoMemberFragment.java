@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.http.HttpGetEmployeeById;
 import com.lengkeng.oophrm.models.Employee;
@@ -102,18 +103,13 @@ public class InfoMemberFragment extends Fragment {
                     dialogEdit = new DialogEdit();
                     dialogEdit.setManager((Manager)finalE);
                     dialogEdit.show(getFragmentManager(),"abc");
+
                 }else if(finalE instanceof Employee) {
                     dialogEdit = new DialogEdit();
                     dialogEdit.setEmployee((Employee)finalE);
                     Log.e("emp2", "em2" + (dialogEdit.getEmployee()).getName());
                     dialogEdit.show(getFragmentManager(),"abc");
                 }
-
-
-
-
-
-
             }
         });
 
