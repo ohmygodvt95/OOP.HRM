@@ -89,7 +89,7 @@ public class InfoMemberFragment extends Fragment {
             tvPosition.setText(((Employee) e).getPosition());
             tvBonus.setVisibility(View.GONE);
             tvBonus2.setVisibility(View.GONE);
-            tvSalary.setText(((Employee) e).getSalary());
+            tvSalary.setText(((Employee) e).getSalary()+"");
             if(((Employee) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
