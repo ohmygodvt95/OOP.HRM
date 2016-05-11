@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,15 +91,29 @@ public class InfoMemberFragment extends Fragment {
             else img.setImageResource(R.drawable.user_girl);
         }
 
+        final Object finalE = e;
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogEdit fragment = new DialogEdit();
 
-                DialogEdit fragment1 = new DialogEdit();
-//                fragment1.mLi = InfoMemberFragment.this;
-//                fragment1.text = mTextView.getText().toString();
-//                fragment1.show(getFragmentManager(), "");
+                android.support.v4.app.DialogFragment dialogFragment= new DialogEdit();
+                DialogEdit dialogEdit;
+                if(finalE instanceof Manager) {
+                    dialogEdit = new DialogEdit();
+                    dialogEdit.setManager((Manager)finalE);
+                    dialogEdit.show(getFragmentManager(),"abc");
+                }else if(finalE instanceof Employee) {
+                    dialogEdit = new DialogEdit();
+                    dialogEdit.setEmployee((Employee)finalE);
+                    Log.e("emp2", "em2" + (dialogEdit.getEmployee()).getName());
+                    dialogEdit.show(getFragmentManager(),"abc");
+                }
+
+
+
+
+
+
             }
         });
 
