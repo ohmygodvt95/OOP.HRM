@@ -135,4 +135,9 @@ public class Employee {
     public void setSex(String sex) {
         this.sex = sex;
     }
+
+    public int calcSalary(){
+
+        return getSalary() * getDayManager().getTotalHours();
+    }
 }
