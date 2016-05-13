@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.ScheduleActivity;
@@ -83,6 +84,8 @@ public class ListScheduleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        TextView txt = (TextView) getActivity().findViewById(R.id.title_schedule);
+        txt.setText("Quản lý chấm công");
         Log.e("E", "onResume: ");
     }
 

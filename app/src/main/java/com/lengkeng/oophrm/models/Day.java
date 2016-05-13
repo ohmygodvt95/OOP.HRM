@@ -1,5 +1,8 @@
 package com.lengkeng.oophrm.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Le Vinh Thien on 5/6/2016.
  * Contact: levinhthien.bka@gmail.com
@@ -20,7 +23,15 @@ public class Day {
         this.timestamp = timestamp;
         this.title = type;
     }
-
+    public Day(JSONObject obj){
+        try {
+            this.title = obj.has("title") ? obj.getString("title") : "null";
+            this.timestamp = obj.has("timestamp") ? obj.getString("timestamp") : "";
+            this.hours = obj.has("hours") ? obj.getInt("hours") : 0;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     public int getHours() {
         return hours;
     }
