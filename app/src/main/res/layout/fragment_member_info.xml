@@ -174,7 +174,7 @@ android:padding="5dp">
                 android:id="@+id/salary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xxx"/>
+                android:text="0"/>
         </LinearLayout>
 
         <LinearLayout
@@ -192,7 +192,7 @@ android:padding="5dp">
                 android:id="@+id/bonus2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xxx"/>
+                android:text="0"/>
         </LinearLayout>
 
 

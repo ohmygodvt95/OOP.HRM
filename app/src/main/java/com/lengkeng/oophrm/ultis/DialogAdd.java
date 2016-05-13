@@ -13,29 +13,27 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
-import com.lengkeng.oophrm.fragments.InfoMemberFragment;
-import com.lengkeng.oophrm.models.Employee;
-import com.lengkeng.oophrm.models.Manager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -46,14 +44,31 @@ public class DialogAdd extends DialogFragment {
     EditText firstName;
     EditText lastName;
     EditText dateOfBirth;
-    EditText sex;
-    EditText group;
-    EditText position;
+    RadioGroup sex;
+    RadioButton sexNam;
+    RadioButton sexNu;
+    Spinner group;
+    Spinner position;
     EditText salary;
     EditText bonus;
     TextView tvbonus;
     TextView tvIdnv;
 
+    String groupArr[] = {
+            "Phòng hành chính",
+            "Phòng nhân sự",
+            "Phòng marketing",
+            "Phòng công nghệ",
+            "Phòng lập trình",
+            "Ban giám đốc"
+    };
+    String positionArr[] = {
+            "Giám đốc",
+            "Phó giám đốc",
+            "Trưởng phòng",
+            "Phó phòng",
+            "Nhân viên"
+    };
 
     @Nullable
     @Override
@@ -68,13 +83,21 @@ public class DialogAdd extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.dialog_edit_info, null))
+        builder.setView(inflater.inflate(R.layout.dialog_info, null))
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         new PutInfo().execute();
-                        Intent intent = new Intent(getActivity(), MemberActivity.class);
-                        startActivity(intent);
+                        if((CheckFirstName(firstName.getText().toString()) == false) ||
+                                (CheckLastName(lastName.getText().toString()) == false) ) {
+                            DialogAdd dialogAdd;
+                            dialogAdd = new DialogAdd();
+                            dialogAdd.show(getFragmentManager(),"abc");
+                        }
+                        else {
+                            Intent intent = new Intent(getActivity(), MemberActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -90,9 +113,17 @@ public class DialogAdd extends DialogFragment {
         firstName = (EditText) this.getDialog().findViewById(R.id.firtName);
         lastName = (EditText) this.getDialog().findViewById(R.id.lastName);
         dateOfBirth = (EditText) this.getDialog().findViewById(R.id.dateofbirth);
-        sex = (EditText) this.getDialog().findViewById(R.id.sex);
-        group = (EditText) this.getDialog().findViewById(R.id.group);
-        position = (EditText) this.getDialog().findViewById(R.id.position);
+        sex = (RadioGroup) this.getDialog().findViewById(R.id.sex);
+        sexNam = (RadioButton) this.getDialog().findViewById(R.id.sexNam);
+        sexNu = (RadioButton) this.getDialog().findViewById(R.id.sexNu);
+        group = (Spinner) this.getDialog().findViewById(R.id.group);
+        ArrayAdapter<String> adapterG=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,groupArr);
+        adapterG.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        group.setAdapter(adapterG);
+        position = (Spinner) this.getDialog().findViewById(R.id.position);
+        ArrayAdapter<String> adapterP=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,positionArr);
+        adapterP.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        position.setAdapter(adapterP);
         salary = (EditText) this.getDialog().findViewById(R.id.salary);
         bonus = (EditText) this.getDialog().findViewById(R.id.bonus);
         tvbonus = (TextView) this.getDialog().findViewById(R.id.tvbonus);
@@ -106,9 +137,10 @@ public class DialogAdd extends DialogFragment {
         String sLastName = lastName.getText().toString();
         String sDateOfBirth = dateOfBirth.getText().toString();
         Date d = convertStringToDate(sDateOfBirth);
-        String sSex = sex.getText().toString();
-        String sGroup = group.getText().toString();
-        String sPosition = position.getText().toString();
+        String sPosition = position.getSelectedItem().toString();
+        Integer isCheck = sex.getCheckedRadioButtonId();
+        int p = group.getSelectedItemPosition();
+        String sGroup = Integer.toString(p);
         String sSalary = salary.getText().toString();
         String sBonus = bonus.getText().toString();
         String idnv = tvIdnv.getText().toString();
@@ -122,14 +154,23 @@ public class DialogAdd extends DialogFragment {
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
-            nameValuePairs.add(new BasicNameValuePair("sex", sSex));
+            switch (isCheck){
+                case R.id.sexNam:
+                    String s = "0";
+                    nameValuePairs.add(new BasicNameValuePair("sex", s));
+                    break;
+                case R.id.sexNu:
+                    String s2 = "1";
+                    nameValuePairs.add(new BasicNameValuePair("sex", s2));
+                    break;
+            }
             nameValuePairs.add(new BasicNameValuePair("position", sPosition));
             nameValuePairs.add(new BasicNameValuePair("group", sGroup));
             nameValuePairs.add(new BasicNameValuePair("salary", sSalary));
             nameValuePairs.add(new BasicNameValuePair("bonus", sBonus));
 
             try {
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -138,6 +179,30 @@ public class DialogAdd extends DialogFragment {
             return null;
 
         }
+    }
+
+    boolean CheckFirstName(String s) {
+        s = s.trim();
+        if (s.length() < 1)
+        {
+            firstName.requestFocus();
+            firstName.selectAll();
+            Toast.makeText(getActivity(), "Họ và tên đệm không được bỏ trống", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else  return true;
+    }
+
+    boolean CheckLastName(String s) {
+        s = s.trim();
+        if (s.length() < 1)
+        {
+            firstName.requestFocus();
+            firstName.selectAll();
+            Toast.makeText(getActivity(), "Tên không được bỏ trống", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else  return true;
     }
 
     public static String convertDateToString(Date date) {

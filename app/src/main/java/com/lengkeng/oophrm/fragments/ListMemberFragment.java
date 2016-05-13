@@ -99,7 +99,7 @@ public class ListMemberFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Employee employee = (Employee) adapter.getItem(position);
-                ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
+                ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee.getId()), R.id.fragment_container, 1);
             }
         });
     }
