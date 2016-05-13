@@ -4,31 +4,23 @@ package com.lengkeng.oophrm.ultis;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.kevinsawicki.http.HttpRequest;
-import com.lengkeng.oophrm.MainActivity;
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.fragments.InfoMemberFragment;
@@ -51,18 +43,38 @@ import java.util.List;
  * Created by Lan Mai on 5/7/2016.
  */
 public class DialogEdit extends DialogFragment {
+    String id;
     EditText firstName;
     EditText lastName;
     EditText dateOfBirth;
-    EditText sex;
-    EditText group;
-    EditText position;
+    RadioGroup sex;
+    RadioButton sexNam;
+    RadioButton sexNu;
+    Spinner group;
+    Spinner position;
     EditText salary;
     EditText bonus;
     TextView tvbonus;
 
     Employee employee;
     Manager manager;
+
+    String groupArr[] = {
+        "Phòng hành chính",
+        "Phòng nhân sự",
+        "Phòng marketing",
+        "Phòng công nghệ",
+        "Phòng lập trình",
+        "Ban giám đốc"
+    };
+
+    String positionArr[] = {
+            "Giám đốc",
+            "Phó giám đốc",
+            "Trưởng phòng",
+            "Phó phòng",
+            "Nhân viên"
+    };
 
     public void setManager(Manager manager) {
         this.manager = manager;
@@ -82,10 +94,6 @@ public class DialogEdit extends DialogFragment {
         return null;
     }
 
-    interface onSubmitListener {
-        void setOnSubmitListener(String arg);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,12 +107,26 @@ public class DialogEdit extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.dialog_edit_info, null))
+        builder.setView(inflater.inflate(R.layout.dialog_info, null))
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         new PutInfo().execute();
-                        ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
+                        if((CheckFirstName(firstName.getText().toString()) == false) ||
+                                (CheckLastName(lastName.getText().toString()) == false) ) {
+                            DialogEdit dialogEdit;
+                            if(manager != null) {
+                                dialogEdit = new DialogEdit();
+                                dialogEdit.setManager(manager);
+                                dialogEdit.show(getFragmentManager(),"info manager");
+
+                            }else if(employee != null) {
+                                dialogEdit = new DialogEdit();
+                                dialogEdit.setEmployee(employee);
+                                dialogEdit.show(getFragmentManager(),"info employee");
+                            }
+                        }
+                        else ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(id), R.id.fragment_container, 1);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -120,58 +142,127 @@ public class DialogEdit extends DialogFragment {
         firstName = (EditText) this.getDialog().findViewById(R.id.firtName);
         lastName = (EditText) this.getDialog().findViewById(R.id.lastName);
         dateOfBirth = (EditText) this.getDialog().findViewById(R.id.dateofbirth);
-        sex = (EditText) this.getDialog().findViewById(R.id.sex);
-        group = (EditText) this.getDialog().findViewById(R.id.group);
-        position = (EditText) this.getDialog().findViewById(R.id.position);
+        sex = (RadioGroup) this.getDialog().findViewById(R.id.sex);
+        sexNam = (RadioButton) this.getDialog().findViewById(R.id.sexNam);
+        sexNu = (RadioButton) this.getDialog().findViewById(R.id.sexNu);
+        group = (Spinner) this.getDialog().findViewById(R.id.group);
+        ArrayAdapter<String> adapterG=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,groupArr);
+        adapterG.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        group.setAdapter(adapterG);
+        position = (Spinner) this.getDialog().findViewById(R.id.position);
+        ArrayAdapter<String> adapterP=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,positionArr);
+        adapterP.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        position.setAdapter(adapterP);
         salary = (EditText) this.getDialog().findViewById(R.id.salary);
         bonus = (EditText) this.getDialog().findViewById(R.id.bonus);
         tvbonus = (TextView) this.getDialog().findViewById(R.id.tvbonus);
 
         if (manager != null) {
+            int i = manager.getId();
+            id = Integer.toString(i);
             firstName.setText(manager.getFirstname());
             lastName.setText(manager.getLastname());
             dateOfBirth.setText(manager.getDateofbirth());
-            sex.setText(manager.getSex());
-            group.setText(manager.getGroup());
-            position.setText(manager.getPosition());
-            salary.setText(manager.getSalary()+"");
+            if(manager.getSex().equals("Nam") == true)
+                sexNam.setChecked(true);
+            else sexNu.setChecked(true);
+            //group.setText(manager.getGroup());
+            String s = manager.getGroup().toString();
+            int iGroup = 0;
+            if(s.equals("Phòng hành chính") == true) iGroup = 0;
+            if(s.equals("Phòng nhân sự") == true) iGroup = 1;
+            if(s.equals("Phòng marketing") == true) iGroup = 2;
+            if(s.equals("Phòng công nghệ") == true) iGroup = 3;
+            if(s.equals("Phòng lập trình") == true) iGroup = 4;
+            if(s.equals("Ban giám đốc") == true) iGroup = 5;
+            group.setSelection(iGroup);
+            String p = manager.getPosition().toString();
+            int iPosition = 0;
+            if(p.equals("Giám đốc") == true) iPosition =0;
+            if(p.equals("Phó giám đốc") == true) iPosition = 1;
+            if(p.equals("Trưởng phòng") == true) iPosition = 2;
+            if(p.equals("Phó phòng") == true) iPosition = 3;
+            if(p.equals("Nhân viên") == true) iPosition = 4;
+            position.setSelection(iPosition);
+            salary.setText(manager.getSalary() + "");
+            position.setSelection(iPosition);
             tvbonus.setVisibility(View.VISIBLE);
             bonus.setVisibility(View.VISIBLE);
-            bonus.setText(manager.getBonus()+"");
+            if(iPosition == 4){
+                tvbonus.setVisibility(View.GONE);
+                bonus.setVisibility(View.GONE);
+            } else {
+                tvbonus.setVisibility(View.VISIBLE);
+                bonus.setVisibility(View.VISIBLE);
+                bonus.setText(manager.getBonus() + "");
+            }
 
         } else if (employee != null) {
+            int i = employee.getId();
+            id = Integer.toString(i);
             firstName.setText(employee.getFirstname());
             lastName.setText(employee.getLastname());
             dateOfBirth.setText(employee.getDateofbirth());
-            sex.setText(employee.getSex());
-            group.setText(employee.getGroup());
-            position.setText(employee.getPosition());
+            if(employee.getSex().equals("Nam") == true)
+                sexNam.setChecked(true);
+            else sexNu.setChecked(true);
+            String s = employee.getGroup().toString();
+            int iGroup = 0;
+            if(s.equals("Phòng hành chính") == true) iGroup = 0;
+            if(s.equals("Phòng nhân sự") == true) iGroup = 1;
+            if(s.equals("Phòng marketing") == true) iGroup = 2;
+            if(s.equals("Phòng công nghệ") == true) iGroup = 3;
+            if(s.equals("Phòng lập trình") == true) iGroup = 4;
+            if(s.equals("Ban giám đốc") == true) iGroup = 5;
+            group.setSelection(iGroup);
+
+            String s2 = employee.getPosition().toString();
+            int iPosition = 0;
+            if(s2.equals("Giám đốc") == true) iPosition =0;
+            if(s2.equals("Phó giám đốc") == true) iPosition = 1;
+            if(s2.equals("Trưởng phòng") == true) iPosition = 2;
+            if(s2.equals("Phó phòng") == true) iPosition = 3;
+            if(s2.equals("Nhân viên") == true) iPosition = 4;
+            position.setSelection(iPosition);
+
             salary.setText(employee.getSalary() + "");
-            tvbonus.setVisibility(View.GONE);
-            bonus.setVisibility(View.GONE);
+            if(iPosition == 4){
+                tvbonus.setVisibility(View.GONE);
+                bonus.setVisibility(View.GONE);
+            } else {
+                tvbonus.setVisibility(View.VISIBLE);
+                bonus.setVisibility(View.VISIBLE);
+                bonus.setText(manager.getBonus() + "");
+            }
+//            tvbonus.setVisibility(View.GONE);
+//            bonus.setVisibility(View.GONE);
         }
     }
-
 
     class PutInfo extends AsyncTask<String, String, String> {
         ProgressDialog pDialog;
         String sFirstName = firstName.getText().toString();
         String sLastName = lastName.getText().toString();
         String sDateOfBirth = dateOfBirth.getText().toString();
-        String sSex = sex.getText().toString();
-        String sGroup = group.getText().toString();
-        String sPosition = position.getText().toString();
+        Integer isCheck = sex.getCheckedRadioButtonId();
+        int g = group.getSelectedItemPosition();
+        String sGroup = Integer.toString(g);
+        String sPosition = position.getSelectedItem().toString();
         String sSalary = salary.getText().toString();
         String sBonus = bonus.getText().toString();
 
         @Override
         protected void onPreExecute() {
+
             super.onPreExecute();
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Loading. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
+
+
+
         }
 
         @Override
@@ -181,25 +272,33 @@ public class DialogEdit extends DialogFragment {
 
         }
 
+
         @Override
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=update_employee_by_id");
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
-            nameValuePairs.add(new BasicNameValuePair("id", employee.getId() + ""));
+            nameValuePairs.add(new BasicNameValuePair("id", id));
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
-            nameValuePairs.add(new BasicNameValuePair("sex", sSex));
+            switch (isCheck){
+                case R.id.sexNam:
+                    String s = "0";
+                    nameValuePairs.add(new BasicNameValuePair("sex", s));
+                    break;
+                case R.id.sexNu:
+                    String s2 = "1";
+                    nameValuePairs.add(new BasicNameValuePair("sex", s2));
+                    break;
+            }
             nameValuePairs.add(new BasicNameValuePair("position", sPosition));
             nameValuePairs.add(new BasicNameValuePair("group", sGroup));
             nameValuePairs.add(new BasicNameValuePair("salary", sSalary));
             nameValuePairs.add(new BasicNameValuePair("bonus", sBonus));
 
             try {
-                UrlEncodedFormEntity form = new UrlEncodedFormEntity(nameValuePairs);
-                form.setContentEncoding(HTTP.UTF_8);
-                httpPost.setEntity(form);
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
 
             } catch (IOException e) {
@@ -213,7 +312,27 @@ public class DialogEdit extends DialogFragment {
         }
     }
 
+    boolean CheckFirstName(String s) {
+        s = s.trim();
+        if (s.length() < 1)
+        {
+            firstName.requestFocus();
+            firstName.selectAll();
+            Toast.makeText(getActivity(), "Họ và tên đệm không được bỏ trống", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else  return true;
+    }
 
-
-
+    boolean CheckLastName(String s) {
+        s = s.trim();
+        if (s.length() < 1)
+        {
+            firstName.requestFocus();
+            firstName.selectAll();
+            Toast.makeText(getActivity(), "Tên không được bỏ trống", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else  return true;
+    }
 }

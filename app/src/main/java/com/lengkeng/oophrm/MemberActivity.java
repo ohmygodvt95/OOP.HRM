@@ -44,9 +44,7 @@ public class MemberActivity extends AppCompatActivity {
             public void onClick(View v) {
                 android.support.v4.app.DialogFragment dialogFragment= new android.support.v4.app.DialogFragment();
                 DialogAdd dialogAdd;
-
                 dialogAdd = new DialogAdd();
-                //dialogEdit.setManager((Manager)finalE);
                 dialogAdd.show(getFragmentManager(),"abc");
 
 

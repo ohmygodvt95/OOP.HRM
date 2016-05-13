@@ -55,12 +55,27 @@
             android:layout_weight="1"
             android:text="Giới tính:"
             android:textStyle="bold"/>
-        <EditText
+        <RadioGroup
+            android:id="@+id/sex"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/sex"/>
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Nam"
+                android:checked="true"
+                android:id="@+id/sexNam"/>
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Nữ"
+                android:id="@+id/sexNu"/>
+        </RadioGroup>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -145,12 +160,12 @@
             android:layout_weight="1"
             android:text="Phòng ban:"
             android:textStyle="bold"/>
-        <EditText
+        <Spinner
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/group"/>
+            android:id="@+id/group">
+        </Spinner>
     </LinearLayout>
 
     <LinearLayout
@@ -164,12 +179,11 @@
             android:layout_weight="1"
             android:text="Vị trí:"
             android:textStyle="bold"/>
-        <EditText
+        <Spinner
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/position"/>
+            android:id="@+id/position"></Spinner>
 
     </LinearLayout>
     <LinearLayout
