@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.lengkeng.oophrm.fragments.MainScheduleFragment;
+import com.lengkeng.oophrm.fragments.ListScheduleFragment;
 
 public class ScheduleActivity extends AppCompatActivity {
     public static int count = 0;
@@ -24,7 +24,7 @@ public class ScheduleActivity extends AppCompatActivity {
     private void init(){
         count++;
         ivBack = (ImageView) findViewById(R.id.back);
-        MainScheduleFragment mainFragment = new MainScheduleFragment();
+        ListScheduleFragment mainFragment = new ListScheduleFragment();
         this.addFragment(mainFragment, R.id.fragment_container, 0);
         // add event
         initEvent();
