@@ -58,6 +58,7 @@ public class HttpScheduleCheckedToday extends AsyncTask<Void, Void, Void> {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(Constants.HOST + "func=schedule_checked_today");
         List<NameValuePair> nameValuePairs = new ArrayList<>(3);
+        nameValuePairs.add(new BasicNameValuePair("_token", Constants._token));
         nameValuePairs.add(new BasicNameValuePair("id", mEmployee.getId() + ""));
 
         if (mEmployee.getDayManager().getToDay().getTitle().compareTo(Day.ALL_DAY) == 0) {
