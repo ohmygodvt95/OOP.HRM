@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.http.HttpGetEmployeeById;
 import com.lengkeng.oophrm.models.Employee;
@@ -60,6 +63,7 @@ public class InfoMemberFragment extends Fragment {
         TextView tvDateOfbirth = (TextView) view.findViewById(R.id.dateofbirth);
         TextView tvBonus = (TextView) view.findViewById(R.id.bonus);
         TextView tvBonus2 = (TextView) view.findViewById(R.id.bonus2);
+        TextView tvSalary = (TextView) view.findViewById(R.id.salary);
 
         if (e instanceof Manager){
             tvName.setText(((Manager) e).getName());
@@ -71,6 +75,7 @@ public class InfoMemberFragment extends Fragment {
             tvBonus.setVisibility(View.VISIBLE);
             tvBonus2.setVisibility(View.VISIBLE);
             tvBonus2.setText(((Manager) e).getBonus()+"");
+            tvSalary.setText(((Manager) e).getSalary()+"");
             if(((Manager) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
@@ -84,20 +89,30 @@ public class InfoMemberFragment extends Fragment {
             tvPosition.setText(((Employee) e).getPosition());
             tvBonus.setVisibility(View.GONE);
             tvBonus2.setVisibility(View.GONE);
+            tvSalary.setText(((Employee) e).getSalary()+"");
             if(((Employee) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
         }
 
+        final Object finalE = e;
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogEdit fragment = new DialogEdit();
 
-                DialogEdit fragment1 = new DialogEdit();
-//                fragment1.mLi = InfoMemberFragment.this;
-//                fragment1.text = mTextView.getText().toString();
-//                fragment1.show(getFragmentManager(), "");
+                android.support.v4.app.DialogFragment dialogFragment= new DialogEdit();
+                DialogEdit dialogEdit;
+                if(finalE instanceof Manager) {
+                    dialogEdit = new DialogEdit();
+                    dialogEdit.setManager((Manager)finalE);
+                    dialogEdit.show(getFragmentManager(),"abc");
+
+                }else if(finalE instanceof Employee) {
+                    dialogEdit = new DialogEdit();
+                    dialogEdit.setEmployee((Employee)finalE);
+                    Log.e("emp2", "em2" + (dialogEdit.getEmployee()).getName());
+                    dialogEdit.show(getFragmentManager(),"abc");
+                }
             }
         });
 

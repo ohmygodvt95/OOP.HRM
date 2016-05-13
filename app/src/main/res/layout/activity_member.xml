@@ -68,6 +68,7 @@
                 android:src="@drawable/user_plus"
                 app:backgroundTint="@color/colorPrimary"
                 app:elevation="4dp"
+                android:id="@+id/add"
                 />
         </com.andexert.library.RippleView>
     </RelativeLayout>

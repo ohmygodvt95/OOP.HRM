@@ -15,14 +15,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Họ và tên:"
+            android:text="Tên:"
             android:textStyle="bold"/>
         <EditText
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="ABC"
-            android:id="@+id/name"/>
+            android:text=""
+            android:id="@+id/lastName"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Họ và tên đệm:"
+            android:textStyle="bold"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/firtName"/>
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +59,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Nữ"
+            android:text=""
             android:id="@+id/sex"/>
     </LinearLayout>
     <LinearLayout
@@ -58,7 +77,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="1/1/1995"
+            android:text=""
             android:id="@+id/dateofbirth"/>
     </LinearLayout>
     <LinearLayout
@@ -76,7 +95,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="0123456789"
+            android:text=""
             android:id="@+id/phone"/>
     </LinearLayout>
     <LinearLayout
@@ -94,7 +113,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="abc@gmail.com"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,7 +130,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="1"
+            android:text=""
             android:id="@+id/idnv"/>
     </LinearLayout>
 
@@ -130,7 +149,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Ban giám đốc"
+            android:text=""
             android:id="@+id/group"/>
     </LinearLayout>
 
@@ -149,8 +168,9 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Giám đốc"
+            android:text=""
             android:id="@+id/position"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -161,18 +181,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hệ số lương:"
+            android:text="Lương:"
             android:textStyle="bold"/>
         <EditText
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="10"
-            android:id="@+id/heso"/>
+            android:text=""
+            android:id="@+id/salary"/>
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="submit"
-        android:id="@+id/submit"/>
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thưởng:"
+            android:textStyle="bold"
+            android:id="@+id/tvbonus"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/bonus"/>
+    </LinearLayout>
 </LinearLayout>
