@@ -31,6 +31,7 @@ import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.adapters.ListMemberAdapter;
 import com.lengkeng.oophrm.models.Employee;
+import com.lengkeng.oophrm.ultis.Constants;
 //import com.lengkeng.oophrm.ultis.JSONParser;
 
 import org.json.JSONArray;
@@ -99,7 +100,7 @@ public class ListMemberFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Employee employee = (Employee) adapter.getItem(position);
-                ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee), R.id.fragment_container, 1);
+                ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(employee.getId()), R.id.fragment_container, 1);
             }
         });
     }
@@ -127,7 +128,7 @@ public class ListMemberFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... args) {
-            HttpRequest request = HttpRequest.get("http://vinhthien.name.vn/api/request?func=get_employees&orderBy=id&orderType=asc");
+            HttpRequest request = HttpRequest.get(Constants.HOST + "func=get_employees&orderBy=id&orderType=asc");
             String response = request.body();
             try {
                 JSONArray employeesJson = new JSONArray(response);

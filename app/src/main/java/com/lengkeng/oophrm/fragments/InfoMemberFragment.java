@@ -29,10 +29,12 @@ import java.util.concurrent.ExecutionException;
 public class InfoMemberFragment extends Fragment {
     View view;
     Employee employee;
+    Integer ID;
 
-    public static InfoMemberFragment newInstance(Employee e) {
+    public static InfoMemberFragment newInstance(Integer id) {
         InfoMemberFragment newInfoMemberFragment = new InfoMemberFragment();
-        newInfoMemberFragment.employee = e;
+        newInfoMemberFragment.ID = id;
+//        newInfoMemberFragment.employee = e;
         return newInfoMemberFragment;
     }
 
@@ -44,15 +46,12 @@ public class InfoMemberFragment extends Fragment {
 
         Object e =null;
         try {
-            e = new HttpGetEmployeeById(this.employee.getId()).execute().get();
+            e = new HttpGetEmployeeById(this.ID).execute().get();
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         } catch (ExecutionException e1) {
             e1.printStackTrace();
         }
-        if (e instanceof Manager) Log.e("e", "Manager");
-        else Log.e("e", "Employee");
-
 
         TextView tvName = (TextView) view.findViewById(R.id.name);
         TextView tvSex = (TextView) view.findViewById(R.id.sex);
