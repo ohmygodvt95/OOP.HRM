@@ -26,6 +26,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutionException;
 
@@ -70,7 +71,7 @@ public class InfoScheduleFragment extends Fragment implements OnDateSelectedList
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-        Log.e("click", "click date");
+
     }
 
     private String getSelectedDatesString() {
@@ -114,6 +115,9 @@ public class InfoScheduleFragment extends Fragment implements OnDateSelectedList
         txtDayOffOk.setText(employee.getDayManager().countDayOffOk() + "");
         txtDayOffCancel.setText(employee.getDayManager().countDayOffCancel() + "");
         txtTotalHours.setText(employee.getDayManager().getTotalHours() + "");
-        txtTotalMoney.setText(employee.calcSalary() + "");
+        double moneyCurrency = employee.calcSalary();
+        NumberFormat baseFormat = NumberFormat.getCurrencyInstance();
+        String moneyString = baseFormat.format(moneyCurrency);
+        txtTotalMoney.setText("$ " + moneyString);
     }
 }
