@@ -31,6 +31,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,8 +119,10 @@ public class DialogAdd extends DialogFragment {
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=create_employee");
+
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
             //nameValuePairs.add(new BasicNameValuePair("id", idnv));
+
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
@@ -129,7 +133,7 @@ public class DialogAdd extends DialogFragment {
             nameValuePairs.add(new BasicNameValuePair("bonus", sBonus));
 
             try {
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
             } catch (IOException e) {
                 e.printStackTrace();
