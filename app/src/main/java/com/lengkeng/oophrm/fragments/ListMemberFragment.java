@@ -31,6 +31,7 @@ import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.adapters.ListMemberAdapter;
 import com.lengkeng.oophrm.models.Employee;
+import com.lengkeng.oophrm.ultis.Constants;
 //import com.lengkeng.oophrm.ultis.JSONParser;
 
 import org.json.JSONArray;
@@ -127,7 +128,7 @@ public class ListMemberFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... args) {
-            HttpRequest request = HttpRequest.get("http://vinhthien.name.vn/api/request?func=get_employees&orderBy=id&orderType=asc");
+            HttpRequest request = HttpRequest.get(Constants.HOST + "func=get_employees&orderBy=id&orderType=asc");
             String response = request.body();
             try {
                 JSONArray employeesJson = new JSONArray(response);

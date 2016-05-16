@@ -2,157 +2,161 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/info"
+    android:background="@color/colorWhite">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:padding="10dp"
-            android:text="Thống kê trong tháng"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:text="Thống kê trong tháng"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
-            <TableLayout
+            <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <TableRow
-
+                <TableLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp">
+                    android:layout_height="wrap_content">
 
-                    <TextView
+                    <TableRow
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.85"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="Cả ngày: " />
+                        android:padding="3dp">
 
-                    <TextView
-                        android:id="@+id/s_full_day"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.85"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Cả ngày: " />
+
+                        <TextView
+                            android:id="@+id/s_full_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10" />
-                </TableRow>
+                        android:padding="3dp">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.85"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Nửa ngày" />
 
-                    <TextView
+                        <TextView
+                            android:id="@+id/s_haft_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.85"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="Nửa ngày" />
+                        android:padding="3dp">
 
-                    <TextView
-                        android:id="@+id/s_haft_day"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.85"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Có phép" />
+
+                        <TextView
+                            android:id="@+id/s_day_off_ok"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10" />
-                </TableRow>
+                        android:padding="3dp">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.85"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Không phép" />
 
+                        <TextView
+                            android:id="@+id/s_day_off_cancel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10" />
+                    </TableRow>
+
+                </TableLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.85"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="Có phép" />
-
+                        android:text="Tổng số giờ làm"/>
                     <TextView
-                        android:id="@+id/s_day_off_ok"
+                        android:id="@+id/total_hours"
+                        android:textSize="40sp"
+                        android:layout_centerInParent="true"
+                        android:text="123"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp">
-
+                        android:layout_height="wrap_content" />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/total_money"
+                        android:layout_alignParentBottom="true"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.85"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="Không phép" />
-
-                    <TextView
-                        android:id="@+id/s_day_off_cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10" />
-                </TableRow>
-
-            </TableLayout>
-            <RelativeLayout
+                        android:text="$ 12345"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:padding="5dp"
-                    android:textAlignment="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tổng số giờ làm"/>
-                <TextView
-                    android:id="@+id/total_hours"
-                    android:textSize="40sp"
-                    android:layout_centerInParent="true"
-                    android:text="123"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/total_money"
-                    android:layout_alignParentBottom="true"
-                    android:padding="5dp"
-                    android:textAlignment="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="$ 12345"/>
-            </RelativeLayout>
+                android:layout_height="380dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorWhite"
+                >
+
+            </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
         </LinearLayout>
-    </LinearLayout>
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendar"
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/colorWhite"
-        android:layout_alignParentBottom="true">
 
-    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+    </ScrollView>
+
 
 </RelativeLayout>
 

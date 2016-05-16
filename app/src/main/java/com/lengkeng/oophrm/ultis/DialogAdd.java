@@ -149,8 +149,10 @@ public class DialogAdd extends DialogFragment {
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=create_employee");
+
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
             //nameValuePairs.add(new BasicNameValuePair("id", idnv));
+
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
