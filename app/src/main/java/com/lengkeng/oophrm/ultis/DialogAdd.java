@@ -95,8 +95,13 @@ public class DialogAdd extends DialogFragment {
                             dialogAdd.show(getFragmentManager(),"abc");
                         }
                         else {
+<<<<<<< HEAD
                         Intent intent = new Intent(getActivity(), MemberActivity.class);
                         startActivity(intent);
+=======
+                            Intent intent = new Intent(getActivity(), MemberActivity.class);
+                            startActivity(intent);
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
                         }
                     }
                 })
@@ -149,8 +154,10 @@ public class DialogAdd extends DialogFragment {
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=create_employee");
+
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
             //nameValuePairs.add(new BasicNameValuePair("id", idnv));
+
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));

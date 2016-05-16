@@ -43,6 +43,10 @@ import java.util.List;
  * Created by Lan Mai on 5/7/2016.
  */
 public class DialogEdit extends DialogFragment {
+<<<<<<< HEAD
+=======
+    Integer ID;
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
     String id;
     EditText firstName;
     EditText lastName;
@@ -60,12 +64,21 @@ public class DialogEdit extends DialogFragment {
     Manager manager;
 
     String groupArr[] = {
+<<<<<<< HEAD
         "Phòng hành chính",
         "Phòng nhân sự",
         "Phòng marketing",
         "Phòng công nghệ",
         "Phòng lập trình",
         "Ban giám đốc"
+=======
+            "Phòng hành chính",
+            "Phòng nhân sự",
+            "Phòng marketing",
+            "Phòng công nghệ",
+            "Phòng lập trình",
+            "Ban giám đốc"
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
     };
 
     String positionArr[] = {
@@ -126,7 +139,11 @@ public class DialogEdit extends DialogFragment {
                                 dialogEdit.show(getFragmentManager(),"info employee");
                             }
                         }
+<<<<<<< HEAD
                         else ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(id), R.id.fragment_container, 1);
+=======
+                        else ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(ID), R.id.fragment_container, 1);
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -158,8 +175,13 @@ public class DialogEdit extends DialogFragment {
         tvbonus = (TextView) this.getDialog().findViewById(R.id.tvbonus);
 
         if (manager != null) {
+<<<<<<< HEAD
             int i = manager.getId();
             id = Integer.toString(i);
+=======
+            ID = manager.getId();
+            id = Integer.toString(ID);
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
             firstName.setText(manager.getFirstname());
             lastName.setText(manager.getLastname());
             dateOfBirth.setText(manager.getDateofbirth());
@@ -198,8 +220,13 @@ public class DialogEdit extends DialogFragment {
             }
 
         } else if (employee != null) {
+<<<<<<< HEAD
             int i = employee.getId();
             id = Integer.toString(i);
+=======
+            int ID = employee.getId();
+            id = Integer.toString(ID);
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
             firstName.setText(employee.getFirstname());
             lastName.setText(employee.getLastname());
             dateOfBirth.setText(employee.getDateofbirth());
@@ -278,7 +305,11 @@ public class DialogEdit extends DialogFragment {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=update_employee_by_id");
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
+<<<<<<< HEAD
             nameValuePairs.add(new BasicNameValuePair("id", id));
+=======
+            //nameValuePairs.add(new BasicNameValuePair("id", id));
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
