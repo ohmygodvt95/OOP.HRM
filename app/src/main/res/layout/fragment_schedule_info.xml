@@ -130,6 +130,7 @@
                         android:textSize="40sp"
                         android:layout_centerInParent="true"
                         android:text="123"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
