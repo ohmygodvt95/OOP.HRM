@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -43,6 +44,8 @@ import java.util.List;
  * Created by Lan Mai on 5/7/2016.
  */
 public class DialogEdit extends DialogFragment {
+
+
     String id;
     EditText firstName;
     EditText lastName;
@@ -58,7 +61,6 @@ public class DialogEdit extends DialogFragment {
 
     Employee employee;
     Manager manager;
-
     String groupArr[] = {
             "Phòng hành chính",
             "Phòng nhân sự",
@@ -75,6 +77,7 @@ public class DialogEdit extends DialogFragment {
             "Phó phòng",
             "Nhân viên"
     };
+
 
     public void setManager(Manager manager) {
         this.manager = manager;
@@ -111,17 +114,21 @@ public class DialogEdit extends DialogFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        new PutInfo().execute();
+
+
                         if ((CheckFirstName(firstName.getText().toString()) == false) ||
                                 (CheckLastName(lastName.getText().toString()) == false)) {
-                            DialogEdit dialogEdit;
+                            DialogEdit dialogEdit = new DialogEdit();
+                            ;
                             if (manager != null) {
-                                dialogEdit = new DialogEdit();
+                                new PutInfo().execute();
                                 dialogEdit.setManager(manager);
                                 dialogEdit.show(getFragmentManager(), "info manager");
 
+
                             } else if (employee != null) {
-                                dialogEdit = new DialogEdit();
+                                new PutInfo().execute();
+
                                 dialogEdit.setEmployee(employee);
                                 dialogEdit.show(getFragmentManager(), "info employee");
                             }
@@ -156,6 +163,25 @@ public class DialogEdit extends DialogFragment {
         salary = (EditText) this.getDialog().findViewById(R.id.salary);
         bonus = (EditText) this.getDialog().findViewById(R.id.bonus);
         tvbonus = (TextView) this.getDialog().findViewById(R.id.tvbonus);
+        position.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 4) {
+                    tvbonus.setVisibility(View.GONE);
+                    bonus.setVisibility(View.GONE);
+                } else {
+                    tvbonus.setVisibility(View.VISIBLE);
+                    bonus.setVisibility(View.VISIBLE);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         if (manager != null) {
 
@@ -192,18 +218,9 @@ public class DialogEdit extends DialogFragment {
             position.setSelection(iPosition);
             tvbonus.setVisibility(View.VISIBLE);
             bonus.setVisibility(View.VISIBLE);
-            if (iPosition == 4) {
-                tvbonus.setVisibility(View.GONE);
-                bonus.setVisibility(View.GONE);
-            } else {
-                tvbonus.setVisibility(View.VISIBLE);
-                bonus.setVisibility(View.VISIBLE);
-                bonus.setText(manager.getBonus() + "");
-            }
+
 
         } else if (employee != null) {
-
-
             int i = employee.getId();
             id = Integer.toString(i);
 
@@ -211,10 +228,11 @@ public class DialogEdit extends DialogFragment {
             firstName.setText(employee.getFirstname());
             lastName.setText(employee.getLastname());
             dateOfBirth.setText(employee.getDateofbirth());
-            if (employee.getSex().equals("Nam") == true)
+            if (employee.getSex().compareTo("Nam") == 0)
+
                 sexNam.setChecked(true);
             else sexNu.setChecked(true);
-            String s = employee.getGroup().toString();
+            String s = employee.getGroup();
             int iGroup = 0;
             if (s.equals("Phòng hành chính") == true) iGroup = 0;
             if (s.equals("Phòng nhân sự") == true) iGroup = 1;
@@ -224,15 +242,15 @@ public class DialogEdit extends DialogFragment {
             if (s.equals("Ban giám đốc") == true) iGroup = 5;
             group.setSelection(iGroup);
 
-            String s2 = employee.getPosition().toString();
+            String s2 = employee.getPosition();
             int iPosition = 0;
-            if (s2.equals("Giám đốc") == true) iPosition = 0;
-            if (s2.equals("Phó giám đốc") == true) iPosition = 1;
-            if (s2.equals("Trưởng phòng") == true) iPosition = 2;
-            if (s2.equals("Phó phòng") == true) iPosition = 3;
-            if (s2.equals("Nhân viên") == true) iPosition = 4;
-            position.setSelection(iPosition);
+            if (s2.compareTo("Giám đốc") == 0) iPosition = 0;
+            if (s2.compareTo("Phó giám đốc") == 0) iPosition = 1;
+            if (s2.compareTo("Trưởng phòng") == 0) iPosition = 2;
+            if (s2.compareTo("Phó phòng") == 0) iPosition = 3;
+            if (s2.compareTo("Nhân viên") == 0) iPosition = 4;
 
+            position.setSelection(iPosition);
             salary.setText(employee.getSalary() + "");
             if (iPosition == 4) {
                 tvbonus.setVisibility(View.GONE);
@@ -242,8 +260,7 @@ public class DialogEdit extends DialogFragment {
                 bonus.setVisibility(View.VISIBLE);
                 bonus.setText(manager.getBonus() + "");
             }
-//            tvbonus.setVisibility(View.GONE);
-//            bonus.setVisibility(View.GONE);
+
         }
     }
 
@@ -311,11 +328,7 @@ public class DialogEdit extends DialogFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             return null;
-
-
         }
     }
 

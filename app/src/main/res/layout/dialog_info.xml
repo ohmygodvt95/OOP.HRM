@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#efefef"
     android:gravity="center"
     android:padding="10dp">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cập nhật thông tin"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,67 +105,17 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text=""
+            android:inputType="date"
             android:id="@+id/dateofbirth"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Điện thoại:"
-            android:textStyle="bold"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/phone"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Email:"
-            android:textStyle="bold"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text=""/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Mã nhân viên:"
-            android:textStyle="bold"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/idnv"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -172,7 +134,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -202,6 +166,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text=""
+            android:inputType="numberDecimal"
             android:id="@+id/salary"/>
     </LinearLayout>
     <LinearLayout
@@ -221,6 +186,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text=""
+            android:inputType="numberDecimal"
             android:id="@+id/bonus"/>
     </LinearLayout>
 </LinearLayout>

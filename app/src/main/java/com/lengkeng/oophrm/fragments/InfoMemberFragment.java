@@ -44,7 +44,12 @@ public class InfoMemberFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_member_info, container, false);
 
-        Object e =null;
+        init();
+        return view;
+    }
+
+    public void init() {
+        Object e = null;
         try {
             e = new HttpGetEmployeeById(this.ID).execute().get();
         } catch (InterruptedException e1) {
@@ -64,32 +69,31 @@ public class InfoMemberFragment extends Fragment {
         TextView tvBonus2 = (TextView) view.findViewById(R.id.bonus2);
         TextView tvSalary = (TextView) view.findViewById(R.id.salary);
 
-        if (e instanceof Manager){
+        if (e instanceof Manager) {
             tvName.setText(((Manager) e).getName());
             tvSex.setText(((Manager) e).getSex());
             tvDateOfbirth.setText(((Manager) e).getDateofbirth());
-            tvIdnv.setText(((Manager) e).getId()+"");
+            tvIdnv.setText(((Manager) e).getId() + "");
             tvGroup.setText(((Manager) e).getGroup());
             tvPosition.setText(((Manager) e).getPosition());
             tvBonus.setVisibility(View.VISIBLE);
             tvBonus2.setVisibility(View.VISIBLE);
-            tvBonus2.setText(((Manager) e).getBonus()+"");
-            tvSalary.setText(((Manager) e).getSalary()+"");
-            if(((Manager) e).getSex().equals("Nam"))
+            tvBonus2.setText(((Manager) e).getBonus() + "");
+            tvSalary.setText(((Manager) e).getSalary() + "");
+            if (((Manager) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
-        }
-        else if(e instanceof Employee){
+        } else if (e instanceof Employee) {
             tvName.setText(((Employee) e).getName());
             tvSex.setText(((Employee) e).getSex());
             tvDateOfbirth.setText(((Employee) e).getDateofbirth());
-            tvIdnv.setText(((Employee) e).getId()+"");
+            tvIdnv.setText(((Employee) e).getId() + "");
             tvGroup.setText(((Employee) e).getGroup());
             tvPosition.setText(((Employee) e).getPosition());
             tvBonus.setVisibility(View.GONE);
             tvBonus2.setVisibility(View.GONE);
-            tvSalary.setText(((Employee) e).getSalary()+"");
-            if(((Employee) e).getSex().equals("Nam"))
+            tvSalary.setText(((Employee) e).getSalary() + "");
+            if (((Employee) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
         }
@@ -99,22 +103,31 @@ public class InfoMemberFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                android.support.v4.app.DialogFragment dialogFragment= new DialogEdit();
+                android.support.v4.app.DialogFragment dialogFragment = new DialogEdit();
                 DialogEdit dialogEdit;
-                if(finalE instanceof Manager) {
+                if (finalE instanceof Manager) {
                     dialogEdit = new DialogEdit();
-                    dialogEdit.setManager((Manager)finalE);
-                    dialogEdit.show(getFragmentManager(),"abc");
+                    dialogEdit.setManager((Manager) finalE);
+                    dialogEdit.show(getFragmentManager(), "abc");
 
-                }else if(finalE instanceof Employee) {
+                } else if (finalE instanceof Employee) {
                     dialogEdit = new DialogEdit();
-                    dialogEdit.setEmployee((Employee)finalE);
+                    dialogEdit.setEmployee((Employee) finalE);
                     Log.e("emp2", "em2" + (dialogEdit.getEmployee()).getName());
-                    dialogEdit.show(getFragmentManager(),"abc");
+                    dialogEdit.show(getFragmentManager(), "abc");
                 }
             }
         });
 
-        return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            finalize();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 }
