@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:orientation="horizontal"
-    android:weightSum="10"
-    android:id="@+id/left_menu">
+    android:weightSum="10">
 
     <LinearLayout
         android:id="@+id/menu_panel"
@@ -14,6 +14,89 @@
         android:layout_weight="8"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/m_logo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/appname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/m_logo"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:text="Quản lý chấm công"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appname"
+                android:layout_centerHorizontal="true"
+                android:text="v1.0.0"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp" />
+            <LinearLayout
+                android:layout_below="@+id/m"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:padding="10dp"
+                    android:text="Author"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/colorPrimary"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="8dp"
+                    android:text="Lê Vĩnh Thiện - 20133740"
+                    android:textColor="@color/colorWhite" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/colorPrimary"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="8dp"
+                    android:text="Phạm Lan Mai - 20132501"
+                    android:textColor="@color/colorWhite" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_alignParentBottom="true"
+                android:textAlignment="center"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="HUST (c) 2016"
+                android:textColor="@color/colorWhite" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 </LinearLayout>
