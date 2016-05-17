@@ -7,7 +7,7 @@ package com.lengkeng.oophrm.ultis;
 public class Constants {
     // Host lay du lieu
     public final static String HOST_NAME = "http://192.168.100.3/hrm/api";
-    public final static String HOST = "http://192.168.100.3/hrm/api/request?";
+    public final static String HOST = "http://vinhthien.name.vn/api/request?";
     public static String _cookie = "null";
     public static String _token = null;
 

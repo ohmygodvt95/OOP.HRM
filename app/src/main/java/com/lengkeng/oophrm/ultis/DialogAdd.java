@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -87,7 +88,7 @@ public class DialogAdd extends DialogFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        new PutInfo().execute();
+
                         if((CheckFirstName(firstName.getText().toString()) == false) ||
                                 (CheckLastName(lastName.getText().toString()) == false) ) {
                             DialogAdd dialogAdd;
@@ -95,6 +96,7 @@ public class DialogAdd extends DialogFragment {
                             dialogAdd.show(getFragmentManager(),"abc");
                         }
                         else {
+                            new PutInfo().execute();
                             Intent intent = new Intent(getActivity(), MemberActivity.class);
                             startActivity(intent);
                         }
@@ -117,19 +119,37 @@ public class DialogAdd extends DialogFragment {
         sexNam = (RadioButton) this.getDialog().findViewById(R.id.sexNam);
         sexNu = (RadioButton) this.getDialog().findViewById(R.id.sexNu);
         group = (Spinner) this.getDialog().findViewById(R.id.group);
-        ArrayAdapter<String> adapterG=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,groupArr);
+        ArrayAdapter<String> adapterG = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, groupArr);
         adapterG.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         group.setAdapter(adapterG);
         position = (Spinner) this.getDialog().findViewById(R.id.position);
-        ArrayAdapter<String> adapterP=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,positionArr);
+
+        ArrayAdapter<String> adapterP = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, positionArr);
         adapterP.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         position.setAdapter(adapterP);
         salary = (EditText) this.getDialog().findViewById(R.id.salary);
         bonus = (EditText) this.getDialog().findViewById(R.id.bonus);
         tvbonus = (TextView) this.getDialog().findViewById(R.id.tvbonus);
         tvIdnv = (TextView) this.getDialog().findViewById(R.id.idnv);
-    }
+        position.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 4) {
+                    tvbonus.setVisibility(View.GONE);
+                    bonus.setVisibility(View.GONE);
+                } else {
+                    tvbonus.setVisibility(View.VISIBLE);
+                    bonus.setVisibility(View.VISIBLE);
 
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
 
     class PutInfo extends AsyncTask<String, String, String> {
         ProgressDialog pDialog;
@@ -143,7 +163,7 @@ public class DialogAdd extends DialogFragment {
         String sGroup = Integer.toString(p);
         String sSalary = salary.getText().toString();
         String sBonus = bonus.getText().toString();
-        String idnv = tvIdnv.getText().toString();
+
 
         @Override
         protected String doInBackground(String... params) {
