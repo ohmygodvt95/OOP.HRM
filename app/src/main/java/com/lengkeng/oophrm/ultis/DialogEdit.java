@@ -125,7 +125,6 @@ public class DialogEdit extends DialogFragment {
 
                             } else if (employee != null) {
                                 new PutInfo().execute();
-
                                 dialogEdit.setEmployee(employee);
                                 dialogEdit.show(getFragmentManager(), "info employee");
                             }
