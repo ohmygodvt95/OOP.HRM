@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RadioButton
+                    android:textSize="12sp"
                     android:id="@+id/all_day"
                     android:checked="false"
                     android:buttonTint="@color/colorWhite"
@@ -28,6 +29,7 @@
                     android:text="Cả ngày" />
 
                 <RadioButton
+                    android:textSize="12sp"
                     android:id="@+id/haft_day"
                     android:checked="false"
                     android:buttonTint="@color/colorWhite"
@@ -37,6 +39,7 @@
                     android:text="Nửa ngày" />
 
                 <RadioButton
+                    android:textSize="12sp"
                     android:id="@+id/day_off_ok"
                     android:checked="false"
                     android:buttonTint="@color/colorWhite"
@@ -46,6 +49,7 @@
                     android:text="Có phép" />
 
                 <RadioButton
+                    android:textSize="12sp"
                     android:id="@+id/day_off_cancel"
                     android:checked="false"
                     android:buttonTint="@color/colorWhite"
