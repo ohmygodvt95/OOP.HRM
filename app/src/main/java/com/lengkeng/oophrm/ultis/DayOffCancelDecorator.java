@@ -37,6 +37,6 @@ public class DayOffCancelDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(10, color));
+        view.addSpan(new DotSpan(20, color));
     }
 }
