@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="values">
+        <item>Họ và tên</item>
+        <item>Phòng ban</item>
+        <item>Chức vụ</item>
+        <item>Giới tính</item>
+    </string-array>
+</resources>

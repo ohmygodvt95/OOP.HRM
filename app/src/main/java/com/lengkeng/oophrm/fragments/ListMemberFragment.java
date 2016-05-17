@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
@@ -58,6 +59,7 @@ public class ListMemberFragment extends Fragment {
     View view;
     Integer id_member;
     int count = 0;
+
     //JSONParser jsonParser=new JSONParser();
     @Nullable
     @Override
@@ -112,10 +114,12 @@ public class ListMemberFragment extends Fragment {
         ProgressDialog pDialog;
         String orderBy;
         String orderType;
-        public getListEmployees(String orderBy, String orderType){
+
+        public getListEmployees(String orderBy, String orderType) {
             this.orderBy = orderBy;
             this.orderType = orderType;
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -137,7 +141,7 @@ public class ListMemberFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... args) {
-            HttpRequest request = HttpRequest.get(Constants.HOST + "func=get_employees&orderBy=" + this.orderBy +"&orderType=" + this.orderType);
+            HttpRequest request = HttpRequest.get(Constants.HOST + "func=get_employees&orderBy=" + this.orderBy + "&orderType=" + this.orderType);
             String response = request.body();
             try {
                 JSONArray employeesJson = new JSONArray(response);
@@ -209,26 +213,34 @@ public class ListMemberFragment extends Fragment {
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new MaterialDialog.Builder(getActivity())
+                        .title("Bạn muốn sắp xếp theo?")
+                        .items(R.array.values)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                switch (which) {
+                                    case 0:
+                                        new getListEmployees("lastname", "asc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo tên", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 1:
+                                        new getListEmployees("group_id", "desc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo phòng ban", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 2:
+                                        new getListEmployees("position", "asc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo chức vụ", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 3:
+                                        new getListEmployees("sex", "asc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo giới tính", Toast.LENGTH_SHORT).show();
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
 
-                switch (count % 4){
-                    case 0:
-                        new getListEmployees( "lastname", "asc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo tên", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        new getListEmployees( "group_id", "desc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo phòng ban", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        new getListEmployees( "position", "asc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo chức vụ", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        new getListEmployees( "sex", "asc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo giới tính", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                count++;
             }
         });
     }

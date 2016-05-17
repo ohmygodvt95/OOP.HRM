@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.ScheduleActivity;
 import com.lengkeng.oophrm.adapters.ListScheduleAdapter;
@@ -94,26 +95,33 @@ public class ListScheduleFragment extends Fragment {
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                switch (count % 4){
-                    case 0:
-                        new HttpGetEmployees(getActivity(), "lastname", "asc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo tên", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        new HttpGetEmployees(getActivity(), "group_id", "desc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo phòng ban", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        new HttpGetEmployees(getActivity(), "position", "asc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo chức vụ", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        new HttpGetEmployees(getActivity(), "sex", "asc").execute();
-                        Toast.makeText(getActivity(), "Sắp xếp theo giới tính", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                count++;
+                new MaterialDialog.Builder(getActivity())
+                        .title("Bạn muốn sắp xếp theo?")
+                        .items(R.array.values)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                switch (which){
+                                    case 0:
+                                        new HttpGetEmployees(getActivity(), "lastname", "asc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo tên", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 1:
+                                        new HttpGetEmployees(getActivity(), "group_id", "desc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo phòng ban", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 2:
+                                        new HttpGetEmployees(getActivity(), "position", "asc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo chức vụ", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 3:
+                                        new HttpGetEmployees(getActivity(), "sex", "asc").execute();
+                                        Toast.makeText(getActivity(), "Sắp xếp theo giới tính", Toast.LENGTH_SHORT).show();
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
             }
         });
     }
