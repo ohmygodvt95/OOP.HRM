@@ -96,9 +96,17 @@ public class DialogAdd extends DialogFragment {
                             dialogAdd.show(getFragmentManager(),"abc");
                         }
                         else {
+<<<<<<< HEAD
                             new PutInfo().execute();
+=======
+<<<<<<< HEAD
+                        Intent intent = new Intent(getActivity(), MemberActivity.class);
+                        startActivity(intent);
+=======
+>>>>>>> 674977578d3c83f2f9da013d6c1087f1ca0c47b5
                             Intent intent = new Intent(getActivity(), MemberActivity.class);
                             startActivity(intent);
+>>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
                         }
                     }
                 })
