@@ -1,25 +1,25 @@
 package com.lengkeng.oophrm.fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
+import com.lengkeng.oophrm.adapters.ListHistoryAdapter;
+import com.lengkeng.oophrm.http.HttpGetHistory;
 import com.lengkeng.oophrm.http.HttpGetEmployeeById;
 import com.lengkeng.oophrm.models.Employee;
 import com.lengkeng.oophrm.models.Manager;
 import com.lengkeng.oophrm.ultis.DialogEdit;
 
+import java.text.NumberFormat;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -78,11 +78,29 @@ public class InfoMemberFragment extends Fragment {
             tvPosition.setText(((Manager) e).getPosition());
             tvBonus.setVisibility(View.VISIBLE);
             tvBonus2.setVisibility(View.VISIBLE);
-            tvBonus2.setText(((Manager) e).getBonus() + "");
-            tvSalary.setText(((Manager) e).getSalary() + "");
+
+            double moneyCurrency = ((Manager) e).getSalary();
+            NumberFormat baseFormat = NumberFormat.getCurrencyInstance();
+            String moneyString = baseFormat.format(moneyCurrency);
+            tvSalary.setText(moneyString + "/giờ ");
+
+            double moneyCurrency2 = ((Manager) e).getBonus();
+            String moneyString2 = baseFormat.format(moneyCurrency2);
+            tvBonus2.setText(moneyString2 + "/tháng");
+
             if (((Manager) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
+            try {
+                ((Manager)e).setHistory(new HttpGetHistory(((Manager) e).getId()).execute().get());
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            } catch (ExecutionException e1) {
+                e1.printStackTrace();
+            }
+            ListHistoryAdapter a = new ListHistoryAdapter(getContext(), ((Manager) e).getHistory());
+            ListView lvHistory = (ListView) view.findViewById(R.id.history);
+            lvHistory.setAdapter(a);
         } else if (e instanceof Employee) {
             tvName.setText(((Employee) e).getName());
             tvSex.setText(((Employee) e).getSex());
@@ -92,12 +110,24 @@ public class InfoMemberFragment extends Fragment {
             tvPosition.setText(((Employee) e).getPosition());
             tvBonus.setVisibility(View.GONE);
             tvBonus2.setVisibility(View.GONE);
-            tvSalary.setText(((Employee) e).getSalary() + "");
+            double moneyCurrency = ((Employee) e).getSalary();
+            NumberFormat baseFormat = NumberFormat.getCurrencyInstance();
+            String moneyString = baseFormat.format(moneyCurrency);
+            tvSalary.setText(moneyString + "/giờ");
             if (((Employee) e).getSex().equals("Nam"))
                 img.setImageResource(R.drawable.user_boy);
             else img.setImageResource(R.drawable.user_girl);
+            try {
+                ((Employee)e).setHistory(new HttpGetHistory(((Employee) e).getId()).execute().get());
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            } catch (ExecutionException e1) {
+                e1.printStackTrace();
+            }
+            ListHistoryAdapter a = new ListHistoryAdapter(getContext(), ((Employee) e).getHistory());
+            ListView lvHistory = (ListView) view.findViewById(R.id.history);
+            lvHistory.setAdapter(a);
         }
-
         final Object finalE = e;
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,10 +154,8 @@ public class InfoMemberFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        try {
-            finalize();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+
     }
+
+
 }

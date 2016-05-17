@@ -23,13 +23,16 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.adapters.ListMemberAdapter;
+import com.lengkeng.oophrm.http.HttpGetEmployees;
 import com.lengkeng.oophrm.models.Employee;
 import com.lengkeng.oophrm.ultis.Constants;
 //import com.lengkeng.oophrm.ultis.JSONParser;
@@ -54,7 +57,7 @@ public class ListMemberFragment extends Fragment {
     Button btn_delete;
     View view;
     Integer id_member;
-
+    int count = 0;
     //JSONParser jsonParser=new JSONParser();
     @Nullable
     @Override
@@ -75,7 +78,7 @@ public class ListMemberFragment extends Fragment {
         editText = (EditText) view.findViewById(R.id.edit_search);
         btn_delete = (Button) view.findViewById(R.id.delete_employee);
         arrayList = new ArrayList<>();
-        new getListEmployees().execute();
+        new getListEmployees("sex", "asc").execute();
         //listView.setTextFilterEnabled(true);
         //setupSearchView();
         editText.addTextChangedListener(new TextWatcher() {
@@ -107,10 +110,16 @@ public class ListMemberFragment extends Fragment {
 
     class getListEmployees extends AsyncTask<String, String, String> {
         ProgressDialog pDialog;
-
+        String orderBy;
+        String orderType;
+        public getListEmployees(String orderBy, String orderType){
+            this.orderBy = orderBy;
+            this.orderType = orderType;
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            arrayList = new ArrayList<>();
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Loading. Please wait...");
             pDialog.setIndeterminate(false);
@@ -128,7 +137,7 @@ public class ListMemberFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... args) {
-            HttpRequest request = HttpRequest.get(Constants.HOST + "func=get_employees&orderBy=id&orderType=asc");
+            HttpRequest request = HttpRequest.get(Constants.HOST + "func=get_employees&orderBy=" + this.orderBy +"&orderType=" + this.orderType);
             String response = request.body();
             try {
                 JSONArray employeesJson = new JSONArray(response);
@@ -190,5 +199,36 @@ public class ListMemberFragment extends Fragment {
             alertDialog.show();
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ImageView sort = (ImageView) getActivity().findViewById(R.id.sort);
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                switch (count % 4){
+                    case 0:
+                        new getListEmployees( "lastname", "asc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo tên", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        new getListEmployees( "group_id", "desc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo phòng ban", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        new getListEmployees( "position", "asc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo chức vụ", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        new getListEmployees( "sex", "asc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo giới tính", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                count++;
+            }
+        });
     }
 }

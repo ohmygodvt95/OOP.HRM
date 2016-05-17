@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.ScheduleActivity;
@@ -29,7 +31,7 @@ public class ListScheduleFragment extends Fragment {
     ListView listView;
     ArrayList<Employee> data;
     ListScheduleAdapter adapter;
-
+    int count = 0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class ListScheduleFragment extends Fragment {
                 ((ScheduleActivity) getActivity()).addFragment(InfoScheduleFragment.newInstance(e), R.id.fragment_container, 1);
             }
         });
+
     }
 
     @Override
@@ -86,7 +89,33 @@ public class ListScheduleFragment extends Fragment {
         super.onResume();
         TextView txt = (TextView) getActivity().findViewById(R.id.title_schedule);
         txt.setText("Quản lý chấm công");
-        Log.e("E", "onResume: ");
+        ImageView sort = (ImageView) getActivity().findViewById(R.id.iv_sort);
+        sort.setImageResource(R.drawable.sort);
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                switch (count % 4){
+                    case 0:
+                        new HttpGetEmployees(getActivity(), "lastname", "asc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo tên", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        new HttpGetEmployees(getActivity(), "group_id", "desc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo phòng ban", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        new HttpGetEmployees(getActivity(), "position", "asc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo chức vụ", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        new HttpGetEmployees(getActivity(), "sex", "asc").execute();
+                        Toast.makeText(getActivity(), "Sắp xếp theo giới tính", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                count++;
+            }
+        });
     }
 
     @Override

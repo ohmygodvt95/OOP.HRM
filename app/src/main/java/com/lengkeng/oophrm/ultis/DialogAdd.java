@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.lengkeng.oophrm.MemberActivity;
 import com.lengkeng.oophrm.R;
+import com.lengkeng.oophrm.fragments.ListMemberFragment;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -89,19 +90,16 @@ public class DialogAdd extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        if((CheckFirstName(firstName.getText().toString()) == false) ||
-                                (CheckLastName(lastName.getText().toString()) == false) ) {
+                        if ((CheckFirstName(firstName.getText().toString()) == false) ||
+                                (CheckLastName(lastName.getText().toString()) == false)) {
                             DialogAdd dialogAdd;
                             dialogAdd = new DialogAdd();
-                            dialogAdd.show(getFragmentManager(),"abc");
-                        }
-                        else {
+                            dialogAdd.show(getFragmentManager(), "abc");
+                        } else {
 
                             new PutInfo().execute();
-
-
-                        Intent intent = new Intent(getActivity(), MemberActivity.class);
-                        startActivity(intent);
+                           ListMemberFragment listMemberFragment = new ListMemberFragment();
+                            ((MemberActivity) getActivity()).addFragment(listMemberFragment, R.id.fragment_container, 0);
 
                         }
                     }
@@ -175,12 +173,10 @@ public class DialogAdd extends DialogFragment {
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=create_employee");
 
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
-            //nameValuePairs.add(new BasicNameValuePair("id", idnv));
-
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
-            switch (isCheck){
+            switch (isCheck) {
                 case R.id.sexNam:
                     String s = "0";
                     nameValuePairs.add(new BasicNameValuePair("sex", s));
@@ -209,26 +205,22 @@ public class DialogAdd extends DialogFragment {
 
     boolean CheckFirstName(String s) {
         s = s.trim();
-        if (s.length() < 1)
-        {
+        if (s.length() < 1) {
             firstName.requestFocus();
             firstName.selectAll();
             Toast.makeText(getActivity(), "Họ và tên đệm không được bỏ trống", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else  return true;
+        } else return true;
     }
 
     boolean CheckLastName(String s) {
         s = s.trim();
-        if (s.length() < 1)
-        {
+        if (s.length() < 1) {
             firstName.requestFocus();
             firstName.selectAll();
             Toast.makeText(getActivity(), "Tên không được bỏ trống", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else  return true;
+        } else return true;
     }
 
     public static String convertDateToString(Date date) {

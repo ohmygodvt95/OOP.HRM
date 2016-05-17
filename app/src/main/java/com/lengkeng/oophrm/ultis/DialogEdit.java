@@ -1,5 +1,4 @@
 package com.lengkeng.oophrm.ultis;
-//baka
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -34,7 +33,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -116,10 +114,9 @@ public class DialogEdit extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
 
 
-                        if ((CheckFirstName(firstName.getText().toString()) == false) ||
-                                (CheckLastName(lastName.getText().toString()) == false)) {
+                        if ((!CheckFirstName(firstName.getText().toString())) ||
+                                (!CheckLastName(lastName.getText().toString()))) {
                             DialogEdit dialogEdit = new DialogEdit();
-                            ;
                             if (manager != null) {
                                 new PutInfo().execute();
                                 dialogEdit.setManager(manager);
@@ -133,7 +130,7 @@ public class DialogEdit extends DialogFragment {
                                 dialogEdit.show(getFragmentManager(), "info employee");
                             }
                         } else
-                            ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(id), R.id.fragment_container, 1);
+                            ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(manager == null ? employee.getId(): manager.getId()), R.id.fragment_container, 0);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -172,7 +169,6 @@ public class DialogEdit extends DialogFragment {
                 } else {
                     tvbonus.setVisibility(View.VISIBLE);
                     bonus.setVisibility(View.VISIBLE);
-
                 }
             }
 
@@ -182,37 +178,33 @@ public class DialogEdit extends DialogFragment {
             }
         });
 
-
         if (manager != null) {
-
-
             int i = manager.getId();
             id = Integer.toString(i);
-
 
             firstName.setText(manager.getFirstname());
             lastName.setText(manager.getLastname());
             dateOfBirth.setText(manager.getDateofbirth());
-            if (manager.getSex().equals("Nam") == true)
+            if (manager.getSex().equals("Nam"))
                 sexNam.setChecked(true);
             else sexNu.setChecked(true);
             //group.setText(manager.getGroup());
-            String s = manager.getGroup().toString();
+            String s = manager.getGroup();
             int iGroup = 0;
-            if (s.equals("Phòng hành chính") == true) iGroup = 0;
-            if (s.equals("Phòng nhân sự") == true) iGroup = 1;
-            if (s.equals("Phòng marketing") == true) iGroup = 2;
-            if (s.equals("Phòng công nghệ") == true) iGroup = 3;
-            if (s.equals("Phòng lập trình") == true) iGroup = 4;
-            if (s.equals("Ban giám đốc") == true) iGroup = 5;
+            if (s.equals("Phòng hành chính")) iGroup = 0;
+            if (s.equals("Phòng nhân sự")) iGroup = 1;
+            if (s.equals("Phòng marketing")) iGroup = 2;
+            if (s.equals("Phòng công nghệ")) iGroup = 3;
+            if (s.equals("Phòng lập trình")) iGroup = 4;
+            if (s.equals("Ban giám đốc")) iGroup = 5;
             group.setSelection(iGroup);
-            String p = manager.getPosition().toString();
+            String p = manager.getPosition();
             int iPosition = 0;
-            if (p.equals("Giám đốc") == true) iPosition = 0;
-            if (p.equals("Phó giám đốc") == true) iPosition = 1;
-            if (p.equals("Trưởng phòng") == true) iPosition = 2;
-            if (p.equals("Phó phòng") == true) iPosition = 3;
-            if (p.equals("Nhân viên") == true) iPosition = 4;
+            if (p.equals("Giám đốc")) iPosition = 0;
+            if (p.equals("Phó giám đốc")) iPosition = 1;
+            if (p.equals("Trưởng phòng")) iPosition = 2;
+            if (p.equals("Phó phòng")) iPosition = 3;
+            if (p.equals("Nhân viên")) iPosition = 4;
             position.setSelection(iPosition);
             salary.setText(manager.getSalary() + "");
             position.setSelection(iPosition);
@@ -234,12 +226,12 @@ public class DialogEdit extends DialogFragment {
             else sexNu.setChecked(true);
             String s = employee.getGroup();
             int iGroup = 0;
-            if (s.equals("Phòng hành chính") == true) iGroup = 0;
-            if (s.equals("Phòng nhân sự") == true) iGroup = 1;
-            if (s.equals("Phòng marketing") == true) iGroup = 2;
-            if (s.equals("Phòng công nghệ") == true) iGroup = 3;
-            if (s.equals("Phòng lập trình") == true) iGroup = 4;
-            if (s.equals("Ban giám đốc") == true) iGroup = 5;
+            if (s.equals("Phòng hành chính")) iGroup = 0;
+            if (s.equals("Phòng nhân sự")) iGroup = 1;
+            if (s.equals("Phòng marketing")) iGroup = 2;
+            if (s.equals("Phòng công nghệ")) iGroup = 3;
+            if (s.equals("Phòng lập trình")) iGroup = 4;
+            if (s.equals("Ban giám đốc")) iGroup = 5;
             group.setSelection(iGroup);
 
             String s2 = employee.getPosition();
@@ -301,7 +293,7 @@ public class DialogEdit extends DialogFragment {
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=update_employee_by_id");
-            List<NameValuePair> nameValuePairs = new ArrayList<>(9);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(5);
             nameValuePairs.add(new BasicNameValuePair("id", id));
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));

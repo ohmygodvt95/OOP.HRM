@@ -38,11 +38,12 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/iv_sort"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:src="@drawable/search" />
+                    android:src="@drawable/sort" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
         <FrameLayout

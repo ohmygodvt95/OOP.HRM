@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.lengkeng.oophrm.R;
 import com.lengkeng.oophrm.http.HttpGetEmployeeById;
 import com.lengkeng.oophrm.http.HttpGetSchedule;
@@ -93,6 +95,20 @@ public class InfoScheduleFragment extends Fragment implements OnDateSelectedList
         TextView txt = (TextView) getActivity().findViewById(R.id.title_schedule);
         txt.setText(employee.getName());
         getSchedule(FORMATTER.format(CalendarDay.today().getDate()));
+
+        ImageView iv = (ImageView) getActivity().findViewById(R.id.iv_sort);
+        iv.setImageResource(R.drawable.info);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean wrapInScrollView = true;
+                new MaterialDialog.Builder(getActivity())
+                        .title("Chú thích")
+                        .customView(R.layout.info_schedule, wrapInScrollView)
+                        .positiveText("OK")
+                        .show();
+            }
+        });
 
     }
 

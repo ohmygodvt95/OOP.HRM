@@ -1,9 +1,9 @@
 package com.lengkeng.oophrm.models;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Le Vinh Thien on 4/8/2016.
@@ -21,6 +21,7 @@ public class Employee {
     private int cmt;
     private int salary;
     private DayManager dayManager;
+    private ArrayList<History> history;
     public Employee(JSONObject obj) {
         try {
             this.id = obj.has("id") ? obj.getInt("id") : 0;
@@ -34,7 +35,8 @@ public class Employee {
             this.cmt = obj.has("cmt") ? obj.getInt("cmt") : 0;
             this.salary = obj.has("salary") ? obj.getInt("salary") : 0;
             this.dayManager = new DayManager();
-            this.dayManager.setToDay(new Day(0, obj.getJSONObject("today").getString("timestamp"), obj.getJSONObject("today").getString("title")));
+            if(obj.has("today")) this.dayManager.setToDay(new Day(0, obj.getJSONObject("today").getString("timestamp"), obj.getJSONObject("today").getString("title")));
+            this.history = new ArrayList<>();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -42,6 +44,14 @@ public class Employee {
 
     public Employee() {
 
+    }
+
+    public ArrayList< History> getHistory() {
+        return history;
+    }
+
+    public void setHistory(ArrayList<History> history) {
+        this.history = history;
     }
 
     public String getAddress() {
