@@ -19,7 +19,7 @@
                 android:id="@+id/edit_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="search here..." />
+                android:hint="gõ để tìm kiếm.." />
         </LinearLayout>
 
         <ListView

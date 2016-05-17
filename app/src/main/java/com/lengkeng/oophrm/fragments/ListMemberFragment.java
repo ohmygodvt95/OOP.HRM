@@ -205,6 +205,7 @@ public class ListMemberFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ImageView sort = (ImageView) getActivity().findViewById(R.id.sort);
+        sort.setImageResource(R.drawable.sort);
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -30,7 +30,7 @@ public class InfoMemberFragment extends Fragment {
     View view;
     Employee employee;
     Integer ID;
-
+    Object finalE;
     public static InfoMemberFragment newInstance(Integer id) {
         InfoMemberFragment newInfoMemberFragment = new InfoMemberFragment();
         newInfoMemberFragment.ID = id;
@@ -128,20 +128,17 @@ public class InfoMemberFragment extends Fragment {
             ListView lvHistory = (ListView) view.findViewById(R.id.history);
             lvHistory.setAdapter(a);
         }
-        final Object finalE = e;
+        finalE = e;
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                android.support.v4.app.DialogFragment dialogFragment = new DialogEdit();
-                DialogEdit dialogEdit;
+                DialogEdit dialogEdit = new DialogEdit();
                 if (finalE instanceof Manager) {
-                    dialogEdit = new DialogEdit();
                     dialogEdit.setManager((Manager) finalE);
                     dialogEdit.show(getFragmentManager(), "abc");
 
                 } else if (finalE instanceof Employee) {
-                    dialogEdit = new DialogEdit();
                     dialogEdit.setEmployee((Employee) finalE);
                     Log.e("emp2", "em2" + (dialogEdit.getEmployee()).getName());
                     dialogEdit.show(getFragmentManager(), "abc");
@@ -157,5 +154,25 @@ public class InfoMemberFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ImageView iv = (ImageView) getActivity().findViewById(R.id.sort);
+        iv.setImageResource(R.drawable.edit);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogEdit dialogEdit = new DialogEdit();
+                if (finalE instanceof Manager) {
+                    dialogEdit.setManager((Manager) finalE);
+                    dialogEdit.show(getFragmentManager(), "abc");
 
+                } else if (finalE instanceof Employee) {
+                    dialogEdit.setEmployee((Employee) finalE);
+                    Log.e("emp2", "em2" + (dialogEdit.getEmployee()).getName());
+                    dialogEdit.show(getFragmentManager(), "abc");
+                }
+            }
+        });
+    }
 }
