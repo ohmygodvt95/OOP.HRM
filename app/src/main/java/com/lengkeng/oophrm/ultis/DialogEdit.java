@@ -43,10 +43,6 @@ import java.util.List;
  * Created by Lan Mai on 5/7/2016.
  */
 public class DialogEdit extends DialogFragment {
-<<<<<<< HEAD
-=======
-    Integer ID;
->>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
     String id;
     EditText firstName;
     EditText lastName;
@@ -64,21 +60,12 @@ public class DialogEdit extends DialogFragment {
     Manager manager;
 
     String groupArr[] = {
-<<<<<<< HEAD
-        "Phòng hành chính",
-        "Phòng nhân sự",
-        "Phòng marketing",
-        "Phòng công nghệ",
-        "Phòng lập trình",
-        "Ban giám đốc"
-=======
             "Phòng hành chính",
             "Phòng nhân sự",
             "Phòng marketing",
             "Phòng công nghệ",
             "Phòng lập trình",
             "Ban giám đốc"
->>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
     };
 
     String positionArr[] = {
@@ -125,25 +112,21 @@ public class DialogEdit extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         new PutInfo().execute();
-                        if((CheckFirstName(firstName.getText().toString()) == false) ||
-                                (CheckLastName(lastName.getText().toString()) == false) ) {
+                        if ((CheckFirstName(firstName.getText().toString()) == false) ||
+                                (CheckLastName(lastName.getText().toString()) == false)) {
                             DialogEdit dialogEdit;
-                            if(manager != null) {
+                            if (manager != null) {
                                 dialogEdit = new DialogEdit();
                                 dialogEdit.setManager(manager);
-                                dialogEdit.show(getFragmentManager(),"info manager");
+                                dialogEdit.show(getFragmentManager(), "info manager");
 
-                            }else if(employee != null) {
+                            } else if (employee != null) {
                                 dialogEdit = new DialogEdit();
                                 dialogEdit.setEmployee(employee);
-                                dialogEdit.show(getFragmentManager(),"info employee");
+                                dialogEdit.show(getFragmentManager(), "info employee");
                             }
-                        }
-<<<<<<< HEAD
-                        else ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(id), R.id.fragment_container, 1);
-=======
-                        else ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(ID), R.id.fragment_container, 1);
->>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
+                        } else
+                            ((MemberActivity) getActivity()).addFragment(InfoMemberFragment.newInstance(id), R.id.fragment_container, 1);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -163,11 +146,11 @@ public class DialogEdit extends DialogFragment {
         sexNam = (RadioButton) this.getDialog().findViewById(R.id.sexNam);
         sexNu = (RadioButton) this.getDialog().findViewById(R.id.sexNu);
         group = (Spinner) this.getDialog().findViewById(R.id.group);
-        ArrayAdapter<String> adapterG=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,groupArr);
+        ArrayAdapter<String> adapterG = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, groupArr);
         adapterG.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         group.setAdapter(adapterG);
         position = (Spinner) this.getDialog().findViewById(R.id.position);
-        ArrayAdapter<String> adapterP=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,positionArr);
+        ArrayAdapter<String> adapterP = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, positionArr);
         adapterP.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         position.setAdapter(adapterP);
         salary = (EditText) this.getDialog().findViewById(R.id.salary);
@@ -175,42 +158,41 @@ public class DialogEdit extends DialogFragment {
         tvbonus = (TextView) this.getDialog().findViewById(R.id.tvbonus);
 
         if (manager != null) {
-<<<<<<< HEAD
+
+
             int i = manager.getId();
             id = Integer.toString(i);
-=======
-            ID = manager.getId();
-            id = Integer.toString(ID);
->>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
+
+
             firstName.setText(manager.getFirstname());
             lastName.setText(manager.getLastname());
             dateOfBirth.setText(manager.getDateofbirth());
-            if(manager.getSex().equals("Nam") == true)
+            if (manager.getSex().equals("Nam") == true)
                 sexNam.setChecked(true);
             else sexNu.setChecked(true);
             //group.setText(manager.getGroup());
             String s = manager.getGroup().toString();
             int iGroup = 0;
-            if(s.equals("Phòng hành chính") == true) iGroup = 0;
-            if(s.equals("Phòng nhân sự") == true) iGroup = 1;
-            if(s.equals("Phòng marketing") == true) iGroup = 2;
-            if(s.equals("Phòng công nghệ") == true) iGroup = 3;
-            if(s.equals("Phòng lập trình") == true) iGroup = 4;
-            if(s.equals("Ban giám đốc") == true) iGroup = 5;
+            if (s.equals("Phòng hành chính") == true) iGroup = 0;
+            if (s.equals("Phòng nhân sự") == true) iGroup = 1;
+            if (s.equals("Phòng marketing") == true) iGroup = 2;
+            if (s.equals("Phòng công nghệ") == true) iGroup = 3;
+            if (s.equals("Phòng lập trình") == true) iGroup = 4;
+            if (s.equals("Ban giám đốc") == true) iGroup = 5;
             group.setSelection(iGroup);
             String p = manager.getPosition().toString();
             int iPosition = 0;
-            if(p.equals("Giám đốc") == true) iPosition =0;
-            if(p.equals("Phó giám đốc") == true) iPosition = 1;
-            if(p.equals("Trưởng phòng") == true) iPosition = 2;
-            if(p.equals("Phó phòng") == true) iPosition = 3;
-            if(p.equals("Nhân viên") == true) iPosition = 4;
+            if (p.equals("Giám đốc") == true) iPosition = 0;
+            if (p.equals("Phó giám đốc") == true) iPosition = 1;
+            if (p.equals("Trưởng phòng") == true) iPosition = 2;
+            if (p.equals("Phó phòng") == true) iPosition = 3;
+            if (p.equals("Nhân viên") == true) iPosition = 4;
             position.setSelection(iPosition);
             salary.setText(manager.getSalary() + "");
             position.setSelection(iPosition);
             tvbonus.setVisibility(View.VISIBLE);
             bonus.setVisibility(View.VISIBLE);
-            if(iPosition == 4){
+            if (iPosition == 4) {
                 tvbonus.setVisibility(View.GONE);
                 bonus.setVisibility(View.GONE);
             } else {
@@ -220,40 +202,39 @@ public class DialogEdit extends DialogFragment {
             }
 
         } else if (employee != null) {
-<<<<<<< HEAD
+
+
             int i = employee.getId();
             id = Integer.toString(i);
-=======
-            int ID = employee.getId();
-            id = Integer.toString(ID);
->>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
+
+
             firstName.setText(employee.getFirstname());
             lastName.setText(employee.getLastname());
             dateOfBirth.setText(employee.getDateofbirth());
-            if(employee.getSex().equals("Nam") == true)
+            if (employee.getSex().equals("Nam") == true)
                 sexNam.setChecked(true);
             else sexNu.setChecked(true);
             String s = employee.getGroup().toString();
             int iGroup = 0;
-            if(s.equals("Phòng hành chính") == true) iGroup = 0;
-            if(s.equals("Phòng nhân sự") == true) iGroup = 1;
-            if(s.equals("Phòng marketing") == true) iGroup = 2;
-            if(s.equals("Phòng công nghệ") == true) iGroup = 3;
-            if(s.equals("Phòng lập trình") == true) iGroup = 4;
-            if(s.equals("Ban giám đốc") == true) iGroup = 5;
+            if (s.equals("Phòng hành chính") == true) iGroup = 0;
+            if (s.equals("Phòng nhân sự") == true) iGroup = 1;
+            if (s.equals("Phòng marketing") == true) iGroup = 2;
+            if (s.equals("Phòng công nghệ") == true) iGroup = 3;
+            if (s.equals("Phòng lập trình") == true) iGroup = 4;
+            if (s.equals("Ban giám đốc") == true) iGroup = 5;
             group.setSelection(iGroup);
 
             String s2 = employee.getPosition().toString();
             int iPosition = 0;
-            if(s2.equals("Giám đốc") == true) iPosition =0;
-            if(s2.equals("Phó giám đốc") == true) iPosition = 1;
-            if(s2.equals("Trưởng phòng") == true) iPosition = 2;
-            if(s2.equals("Phó phòng") == true) iPosition = 3;
-            if(s2.equals("Nhân viên") == true) iPosition = 4;
+            if (s2.equals("Giám đốc") == true) iPosition = 0;
+            if (s2.equals("Phó giám đốc") == true) iPosition = 1;
+            if (s2.equals("Trưởng phòng") == true) iPosition = 2;
+            if (s2.equals("Phó phòng") == true) iPosition = 3;
+            if (s2.equals("Nhân viên") == true) iPosition = 4;
             position.setSelection(iPosition);
 
             salary.setText(employee.getSalary() + "");
-            if(iPosition == 4){
+            if (iPosition == 4) {
                 tvbonus.setVisibility(View.GONE);
                 bonus.setVisibility(View.GONE);
             } else {
@@ -289,7 +270,6 @@ public class DialogEdit extends DialogFragment {
             pDialog.show();
 
 
-
         }
 
         @Override
@@ -305,15 +285,11 @@ public class DialogEdit extends DialogFragment {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=update_employee_by_id");
             List<NameValuePair> nameValuePairs = new ArrayList<>(9);
-<<<<<<< HEAD
             nameValuePairs.add(new BasicNameValuePair("id", id));
-=======
-            //nameValuePairs.add(new BasicNameValuePair("id", id));
->>>>>>> 30395bc300ab067bcaac7ddd860d7469389c1903
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
             nameValuePairs.add(new BasicNameValuePair("dateofbirth", sDateOfBirth));
-            switch (isCheck){
+            switch (isCheck) {
                 case R.id.sexNam:
                     String s = "0";
                     nameValuePairs.add(new BasicNameValuePair("sex", s));
@@ -345,25 +321,21 @@ public class DialogEdit extends DialogFragment {
 
     boolean CheckFirstName(String s) {
         s = s.trim();
-        if (s.length() < 1)
-        {
+        if (s.length() < 1) {
             firstName.requestFocus();
             firstName.selectAll();
             Toast.makeText(getActivity(), "Họ và tên đệm không được bỏ trống", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else  return true;
+        } else return true;
     }
 
     boolean CheckLastName(String s) {
         s = s.trim();
-        if (s.length() < 1)
-        {
+        if (s.length() < 1) {
             firstName.requestFocus();
             firstName.selectAll();
             Toast.makeText(getActivity(), "Tên không được bỏ trống", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else  return true;
+        } else return true;
     }
 }

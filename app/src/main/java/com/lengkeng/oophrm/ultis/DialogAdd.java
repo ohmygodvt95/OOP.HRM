@@ -87,7 +87,7 @@ public class DialogAdd extends DialogFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        new PutInfo().execute();
+
                         if((CheckFirstName(firstName.getText().toString()) == false) ||
                                 (CheckLastName(lastName.getText().toString()) == false) ) {
                             DialogAdd dialogAdd;
@@ -95,7 +95,7 @@ public class DialogAdd extends DialogFragment {
                             dialogAdd.show(getFragmentManager(),"abc");
                         }
                         else {
-
+                            new PutInfo().execute();
                         }
                     }
                 })
