@@ -41,7 +41,7 @@ android:padding="5dp">
             android:textStyle="bold"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -51,31 +51,34 @@ android:padding="5dp">
                 android:textStyle="bold"
                 android:textColor="#228B22"/>
             <TextView
+                android:gravity="end"
                 android:id="@+id/dateofbirth"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1/1/1995"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giới tính:"
                 android:textStyle="bold"
                 android:textColor="#228B22"/>
             <TextView
+                android:gravity="end"
                 android:id="@+id/sex"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nữ"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -86,13 +89,14 @@ android:padding="5dp">
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/idnv"
-                android:layout_width="wrap_content"
+                android:gravity="end"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="20132501"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -103,13 +107,14 @@ android:padding="5dp">
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/group"
-                android:layout_width="wrap_content"
+                android:gravity="end"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ban Giám Đốc"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -120,13 +125,14 @@ android:padding="5dp">
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/position"
-                android:layout_width="wrap_content"
+                android:gravity="end"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Giám Đốc"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -138,13 +144,14 @@ android:padding="5dp">
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/salary"
-                android:layout_width="wrap_content"
+                android:gravity="end"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="0"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -156,7 +163,8 @@ android:padding="5dp">
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/bonus2"
-                android:layout_width="wrap_content"
+                android:gravity="end"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="0"/>
         </LinearLayout>
@@ -179,14 +187,15 @@ android:padding="5dp">
         android:layout_height="wrap_content"
         android:text="LỊCH SỬ TIỀN LƯƠNG"
         android:gravity="center"
-        android:textColor="#FF530D"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3">
+        android:weightSum="3"
+        android:padding="10dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
