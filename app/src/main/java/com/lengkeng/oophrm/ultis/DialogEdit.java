@@ -112,19 +112,19 @@ public class DialogEdit extends DialogFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
+                        new PutInfo().execute();
 
                         if ((!CheckFirstName(firstName.getText().toString())) ||
                                 (!CheckLastName(lastName.getText().toString()))) {
                             DialogEdit dialogEdit = new DialogEdit();
                             if (manager != null) {
-                                new PutInfo().execute();
+
                                 dialogEdit.setManager(manager);
                                 dialogEdit.show(getFragmentManager(), "info manager");
 
 
                             } else if (employee != null) {
-                                new PutInfo().execute();
+
                                 dialogEdit.setEmployee(employee);
                                 dialogEdit.show(getFragmentManager(), "info employee");
                             }
@@ -292,7 +292,7 @@ public class DialogEdit extends DialogFragment {
         protected String doInBackground(String... params) {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.HOST + "func=update_employee_by_id");
-            List<NameValuePair> nameValuePairs = new ArrayList<>(5);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(9);
             nameValuePairs.add(new BasicNameValuePair("id", id));
             nameValuePairs.add(new BasicNameValuePair("firstname", sFirstName));
             nameValuePairs.add(new BasicNameValuePair("lastname", sLastName));
