@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         analystLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this, AnalystActivity.class);
+                if (AnalystActivity.count == 0) startActivity(intent);
             }
         });
         partLayout.setOnClickListener(new View.OnClickListener() {
