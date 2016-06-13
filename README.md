@@ -21,7 +21,7 @@
 - Notes: WiFi / Mobile data always Enable!!!
 
 ### Install APK file
-- Link: http://vinhthien.name.vn/public/uploads/oop.apk
+- Link: http://vinhthien.name.vn/public/uploads/OOP.HRM.apk
 
 ### Copyright 2016 
  - Apache Software License - http://www.apache.org/licenses/LICENSE-2.0
